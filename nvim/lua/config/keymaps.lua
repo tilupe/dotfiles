@@ -37,8 +37,8 @@ vim.keymap.set('n', '<leader>bx', '<C-W>c', { desc = 'Buffer Close' })
 vim.keymap.set('n', '<Esc>', vim.cmd.nohlsearch)
 
 -- Quickfix navigation
-vim.keymap.set('n', '<C-j>', vim.cmd.cnext, { desc = 'Quickfix next' })
-vim.keymap.set('n', '<C-k>', vim.cmd.cprev, { desc = 'Quickfix prev' })
+vim.keymap.set('n', '<C-J>', vim.cmd.cnext, { desc = 'Quickfix next' })
+vim.keymap.set('n', '<C-K>', vim.cmd.cprev, { desc = 'Quickfix prev' })
 vim.keymap.set('n', '<leader>co', vim.cmd.copen, { desc = 'Quickfix open' })
 
 -- Tabs
