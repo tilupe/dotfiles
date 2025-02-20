@@ -9,7 +9,7 @@ window-inherit-font-size = true
 window-decoration = false
 gtk-wide-tabs = false
 mouse-hide-while-typing = true
-font-family = CommitMonoCustom
+font-family = CommitMonoTilupe
 
 background-opacity = 0.95
 background-blur = 20
