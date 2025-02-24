@@ -52,8 +52,6 @@ return {
       local rzls_lib_path = vim.fs.joinpath(vim.fn.resolve(vim.fn.exepath 'rzls'), '..', '..', 'lib', 'rzls')
       local design_time_target_path = vim.fs.joinpath(rzls_lib_path, 'Targets', 'Microsoft.NET.Sdk.Razor.DesignTime.targets')
       local razor_compiler_path = vim.fs.joinpath(rzls_lib_path, 'Microsoft.CodeAnalysis.Razor.Compiler.dll')
-      print('design_time_target_path', design_time_target_path)
-      print('razor_compiler_path', razor_compiler_path)
       require('roslyn').setup {
         --config = {
         -- Here you can pass in any options that that you would like to pass to `vim.lsp.start`.
