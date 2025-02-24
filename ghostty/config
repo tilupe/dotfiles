@@ -2,6 +2,7 @@ theme = Everforest Dark - Hard
 #GruvboxDarkHard
 font-size = 13
 
+command = ~/.config/ghostty/start_tmux.fish
 
 gtk-titlebar = false
 window-inherit-working-directory = true
