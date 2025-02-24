@@ -67,7 +67,7 @@ return {
           '--logLevel=Information',
           '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
           '--razorSourceGenerator=' .. razor_compiler_path,
-          '--razorDesignTimeTarget=' .. design_time_target_path,
+          '--razorDesignTimePath=' .. design_time_target_path,
         },
         config = {
           handlers = require 'rzls.roslyn_handlers',
