@@ -42,7 +42,9 @@ return {
         'tris203/rzls.nvim',
         config = function()
           ---@diagnostic disable-next-line: missing-fields
-          require('rzls').setup {}
+          require('rzls').setup {
+            path = vim.fn.exepath 'rzls',
+          }
         end,
       },
     },
