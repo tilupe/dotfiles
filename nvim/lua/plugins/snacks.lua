@@ -41,6 +41,7 @@ return {
         indent = { enabled = true },
         input = { enabled = true },
         image = { enabled = true },
+        rename = { enabled = true },
         notifier = {
           enabled = true,
           timeout = 3000,
@@ -99,7 +100,9 @@ return {
       -- end, { desc = 'grep string' })
 
       vim.keymap.set('n', '<leader>u', '<cmd>Snacks.toggle<CR>', { noremap = true, silent = true })
-      vim.keymap.set('n', '<leader>z', function() Snacks.zen() end, { desc = 'Toggle Zen Mode' })
+      vim.keymap.set('n', '<leader>z', function()
+        Snacks.zen()
+      end, { desc = 'Toggle Zen Mode' })
       vim.keymap.set('n', '<leader>Z', function()
         Snacks.zen.zoom()
       end, { desc = 'Toggle Zoom' })
@@ -109,7 +112,7 @@ return {
       vim.keymap.set('n', '<leader>S', function()
         Snacks.scratch.select()
       end, { desc = 'Select Scratch Buffer' })
-      vim.keymap.set('n', '<leader>n', function()
+      vim.keymap.set('n', '<leader>N', function()
         Snacks.notifier.show_history()
       end, { desc = 'Notification History' })
       vim.keymap.set('n', '<leader>bd', function()
@@ -133,7 +136,7 @@ return {
       vim.keymap.set('n', '<c-_>', function()
         Snacks.terminal()
       end, { desc = 'which_key_ignore' })
-      vim.keymap.set('n', '<leader>N', function()
+      vim.keymap.set('n', '<leader>W', function()
         Snacks.win {
           file = vim.api.nvim_get_runtime_file('doc/news.txt', false)[1],
           width = 0.6,
@@ -147,6 +150,48 @@ return {
           },
         }
       end, { desc = 'Neovim News' })
+
+
+      vim.keymap.set('n', '<leader>fn', function()
+        Snacks.picker.grep { dirs = { "~/private/notes"}, layout = { preset = 'ivy', layout = { position = 'bottom' } } }
+      end, { desc = 'Neorg string' })
+
+      vim.keymap.set('n', '<leader>fm', function()
+        Snacks.picker.files { dirs = { "~/private/notes"}, layout = { preset = 'ivy', layout = { position = 'bottom' } } }
+      end, { desc = 'Neorg string' })
+      vim.keymap.set(
+        'n',
+        -- -- You can confirm in your teminal lamw26wmal with:
+        -- -- rg "^\s*-\s\[ \]" test-markdown.md
+        '<leader>ft',
+        function()
+          Snacks.picker.grep {
+            prompt = ' ',
+            -- pass your desired search as a static pattern
+            search = '^\\s*- \\[ \\]',
+            -- we enable regex so the pattern is interpreted as a regex
+            regex = true,
+            -- no “live grep” needed here since we have a fixed pattern
+            live = false,
+            -- restrict search to the current working directory
+            dirs = { "~/private/notes" },
+            -- include files ignored by .gitignore
+            args = { '--no-ignore' },
+            -- Start in normal mode
+            on_show = function()
+              vim.cmd.stopinsert()
+            end,
+            finder = 'grep',
+            format = 'file',
+            show_empty = true,
+            supports_live = false,
+            layout = 'ivy',
+          }
+        end,
+        {
+          desc = '[P]Search for incomplete tasks',
+        }
+      )
     end,
   },
 }

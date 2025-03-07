@@ -206,7 +206,7 @@ return {
     config = function()
       require('conform').setup {
         formatters = {
-          -- csharpier = { command = 'dotnet', args = { 'csharpier', '--write-stdout' } },
+          csharpier = { command = 'dotnet', args = { 'csharpier', '--write-stdout' } },
         },
         formatters_by_ft = {
           lua = { 'stylua' },
@@ -282,20 +282,25 @@ return {
   {
     'stevearc/oil.nvim',
     version = '*',
-    opts = {
-      default_file_explorer = false,
-    },
-    keys = {
-      { '-', '<CMD>Oil<CR>', { desc = 'Explore' } },
-      {
-        '<leader>-',
-        function()
-          local git_root_path = vim.fn.finddir('.git', '.;')
-          vim.cmd('Oil ' .. git_root_path)
+    config = function()
+      require('oil').setup {
+        default_file_explorer = false,
+      }
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'OilActionsPost',
+        callback = function(event)
+          if event.data.actions.type == 'move' then
+            Snacks.rename.on_rename_file(event.data.actions.src_url, event.data.actions.dest_url)
+          end
         end,
-        { desc = 'Explore' },
-      },
-    },
+      })
+
+      vim.keymap.set('n', '<leader>-', function()
+        local git_root_path = vim.fn.finddir('.git', '.;')
+        vim.cmd('Oil ' .. git_root_path)
+      end, { desc = 'Explore git root' })
+      vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Explore' })
+    end,
   },
   { 'nvim-telescope/telescope.nvim' },
   {

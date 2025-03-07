@@ -25,6 +25,8 @@ return {
       lspconfig.yamlls.setup { capabilities = capabilities }
       lspconfig.sqls.setup { capabilities = capabilities }
       lspconfig.htmx.setup { capabilities = capabilities }
+      lspconfig.markdown_oxide.setup { capabilities = capabilities }
+      lspconfig.pyright.setup { capabilities = capabilities }
 
       capabilities.textDocument.completion.completionItem.snippetSupport = true
       require('lspconfig').html.setup {

@@ -14,6 +14,7 @@ return {
     dependencies = {
       { 'L3MON4D3/LuaSnip', version = 'v2.*' },
       { 'Kaiser-Yang/blink-cmp-dictionary', dependencies = { 'nvim-lua/plenary.nvim' } },
+      { 'Kaiser-Yang/blink-cmp-avante' },
     },
 
     -- use a release tag to download pre-built binaries
@@ -24,6 +25,7 @@ return {
     build = 'nix run .#build-plugin',
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
+    ---
     opts = {
       -- 'default' for mappings similar to built-in completion
       -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
@@ -43,10 +45,7 @@ return {
       },
 
       fuzzy = {
-        prebuilt_binaries = {
-          download = false,
-          ignore_version_mismatch = true,
-        },
+        implementation = 'prefer_rust_with_warning',
       },
       appearance = {
         use_nvim_cmp_as_default = true,
@@ -61,7 +60,7 @@ return {
       },
       snippets = { preset = 'luasnip' },
       sources = {
-        default = { 'lsp', 'neorg', 'dictionary', 'path', 'snippets', 'buffer' }, -- , 'avante_commands', 'avante_mentions', 'avante_files'
+        default = { 'neorg', 'snippets', 'lsp', 'dictionary', 'path', 'buffer' }, -- , 'avante_commands', 'avante_mentions', 'avante_files'
         providers = {
           neorg = {
             name = 'neorg',
@@ -75,6 +74,13 @@ return {
             min_keyword_length = 3,
             opts = {
               -- options for blink-cmp-dictionary
+            },
+          },
+          avante = {
+            module = 'blink-cmp-avante',
+            name = 'Avante',
+            opts = {
+              -- options for blink-cmp-avante
             },
           },
           -- avante_commands = {

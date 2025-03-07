@@ -81,7 +81,6 @@ return {
           { mode = 'n', keys = '<Leader>f', desc = '+Find' },
           { mode = 'n', keys = '<Leader>x', desc = '+eXecute' },
           { mode = 'n', keys = '<Leader>r', desc = '+Refactor' },
-          { mode = 'n', keys = '<Leader>o', desc = '+Obsidian' },
           { mode = 'n', keys = '<Leader>l', desc = '+Lsp' },
           { mode = 'n', keys = '<Leader>c', desc = '+Code' },
           { mode = 'n', keys = '<Leader>b', desc = '+Buffer' },

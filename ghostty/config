@@ -10,7 +10,7 @@ window-inherit-font-size = true
 window-decoration = false
 gtk-wide-tabs = false
 mouse-hide-while-typing = true
-font-family = CommitMonoTilupe
+font-family = CommitMono Nerd Font Mono
 
 background-opacity = 0.95
 background-blur = 20
@@ -44,11 +44,6 @@ background-blur = 20
 
 
 
-keybind = alt+n=new_window
-keybind = alt+t=new_tab
-
-keybind = alt+shift+h=previous_tab
-keybind = alt+shift+l=next_tab
 keybind = alt+shift+j=scroll_page_lines:-2
 keybind = alt+shift+k=scroll_page_lines:2
 
@@ -58,33 +53,40 @@ keybind = alt+a=toggle_window_decorations
 keybind = alt+r=reload_config
 keybind = alt+c=copy_to_clipboard
 
-keybind = alt+v=new_split:right
-keybind = alt+shift+v=new_split:left
-
-keybind = alt+v=new_split:right
-keybind = alt+shift+v=new_split:left
-
-keybind = alt+z=toggle_split_zoom
-
 keybind = alt+b=scroll_to_bottom
 keybind = alt+shift+b=scroll_to_top
 
-keybind = alt+s=new_split:down
-keybind = alt+shift+s=new_split:up
-
-keybind = alt+l=goto_split:right
-keybind = alt+h=goto_split:left
-keybind = alt+k=goto_split:top
-keybind = alt+j=goto_split:bottom
-
-keybind = alt+right=resize_split:right,20
-keybind = alt+left=resize_split:left,20
-keybind = alt+up=resize_split:up,20
-keybind = alt+down=resize_split:down,20
-
-
 keybind = alt+e=increase_font_size:1
 keybind = alt+shift+e=decrease_font_size:1
+
+
+#keybind = alt+n=new_window
+#keybind = alt+t=new_tab
+#
+#keybind = alt+shift+h=previous_tab
+#keybind = alt+shift+l=next_tab
+#
+#keybind = alt+v=new_split:right
+#keybind = alt+shift+v=new_split:left
+#
+#keybind = alt+v=new_split:right
+#keybind = alt+shift+v=new_split:left
+#
+#keybind = alt+z=toggle_split_zoom
+#
+#keybind = alt+s=new_split:down
+#keybind = alt+shift+s=new_split:up
+#
+#keybind = alt+l=goto_split:right
+#keybind = alt+h=goto_split:left
+#keybind = alt+k=goto_split:top
+#keybind = alt+j=goto_split:bottom
+#
+#keybind = alt+right=resize_split:right,20
+#keybind = alt+left=resize_split:left,20
+#keybind = alt+up=resize_split:up,20
+#keybind = alt+down=resize_split:down,20
+
 
 
 

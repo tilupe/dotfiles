@@ -1,6 +1,6 @@
 {
   "weight": 400,
-  "italic": false,
+  "italic": true,
   "alternates": {
     "cv01": false,
     "cv02": false,
@@ -15,14 +15,14 @@
     "cv11": false
   },
   "features": {
-    "ss01": true,
-    "ss02": true,
+    "ss01": false,
+    "ss02": false,
     "ss03": true,
     "ss04": true,
     "ss05": true
   },
   "letterSpacing": -7,
   "lineHeight": 0.95,
-  "fontName": "Custom"
+  "fontName": "Tilupe"
 }
 
