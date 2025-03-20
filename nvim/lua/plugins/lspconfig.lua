@@ -27,6 +27,7 @@ return {
       lspconfig.htmx.setup { capabilities = capabilities }
       lspconfig.markdown_oxide.setup { capabilities = capabilities }
       lspconfig.pyright.setup { capabilities = capabilities }
+      lspconfig.ts_ls.setup { capabilities = capabilities }
 
       capabilities.textDocument.completion.completionItem.snippetSupport = true
       require('lspconfig').html.setup {
@@ -105,7 +106,7 @@ return {
           },
         },
 
-        filewatching = true,
+        filewatching = 'roslyn',
         choose_target = nil,
         ignore_target = nil,
         broad_search = false,
@@ -129,5 +130,10 @@ return {
         end,
       },
     },
+  },
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^5', -- Recommended
+    lazy = false, -- This plugin is already lazy
   },
 }

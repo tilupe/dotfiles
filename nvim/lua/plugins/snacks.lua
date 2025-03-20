@@ -150,48 +150,6 @@ return {
           },
         }
       end, { desc = 'Neovim News' })
-
-
-      vim.keymap.set('n', '<leader>fn', function()
-        Snacks.picker.grep { dirs = { "~/private/notes"}, layout = { preset = 'ivy', layout = { position = 'bottom' } } }
-      end, { desc = 'Neorg string' })
-
-      vim.keymap.set('n', '<leader>fm', function()
-        Snacks.picker.files { dirs = { "~/private/notes"}, layout = { preset = 'ivy', layout = { position = 'bottom' } } }
-      end, { desc = 'Neorg string' })
-      vim.keymap.set(
-        'n',
-        -- -- You can confirm in your teminal lamw26wmal with:
-        -- -- rg "^\s*-\s\[ \]" test-markdown.md
-        '<leader>ft',
-        function()
-          Snacks.picker.grep {
-            prompt = ' ',
-            -- pass your desired search as a static pattern
-            search = '^\\s*- \\[ \\]',
-            -- we enable regex so the pattern is interpreted as a regex
-            regex = true,
-            -- no “live grep” needed here since we have a fixed pattern
-            live = false,
-            -- restrict search to the current working directory
-            dirs = { "~/private/notes" },
-            -- include files ignored by .gitignore
-            args = { '--no-ignore' },
-            -- Start in normal mode
-            on_show = function()
-              vim.cmd.stopinsert()
-            end,
-            finder = 'grep',
-            format = 'file',
-            show_empty = true,
-            supports_live = false,
-            layout = 'ivy',
-          }
-        end,
-        {
-          desc = '[P]Search for incomplete tasks',
-        }
-      )
     end,
   },
 }

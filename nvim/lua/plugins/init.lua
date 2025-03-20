@@ -73,67 +73,6 @@ return {
     },
   }, -- see undo tree
   {
-    'oonamo/ef-themes.nvim',
-    config = function()
-      require('ef-themes').setup {
-        light = 'ef-spring', -- Ef-theme to select for light backgrounds
-        dark = 'ef-dream', -- Ef-theme to select for dark backgrounds
-        transparent = false,
-        styles = {
-          -- Set specific styles for specific highlight groups
-          -- Can be any valid attr-list value. See `:h nvim_set_hl`
-          comments = { italic = true },
-          keywords = { bold = true },
-          functions = {},
-          variables = {},
-
-          diagnostic = 'default', -- Can be "full"
-          pickers = 'default', -- Can be "borderless"
-        },
-
-        modules = {
-          -- Enable/Disable highlights for a module
-          -- See `h: EfThemes-modules` for the list of available modules
-          blink = true,
-          fzf = true,
-          mini = true,
-          semantic_tokens = true,
-          snacks = false,
-          treesitter = true,
-        },
-
-        --- Override any color from the ef-theme
-        ---@param colors Ef-Theme
-        ---@param name string
-        on_colors = function(colors, name) end,
-
-        --- Override specific highlights
-        ---@param highlights table
-        ---@param colors Ef-Theme
-        ---@param name string
-        ---@return table
-        on_highlights = function(highlights, colors, name)
-          -- Returns a table of highlights
-          -- return {
-          --   Normal = { fg = colors.fg_alt, bg = colors.bg_inactive }
-          --   ObscurePlugin = { fg = colors.yellow_faint }
-          -- }
-        end,
-
-        options = {
-          compile = true, -- Whether to compile a theme
-          compile_path = vim.fn.stdpath 'cache' .. '/ef-themes', -- Directory in which to place compiled themes
-        },
-      }
-
-      --vim.cmd.colorscheme 'ef-theme' -- To use the default colorscheme defined above
-      -- Or choose a specific theme
-      -- vim.cmd.colorscheme("ef-dream")
-    end,
-  },
-  { 'ellisonleao/gruvbox.nvim' },
-  { 'f4z3r/gruvbox-material.nvim' },
-  {
     'neanias/everforest-nvim',
     priority = 1000,
     config = function()
@@ -150,7 +89,6 @@ return {
       everforest.load()
     end,
   },
-  { 'savq/melange-nvim' },
   { 'norcalli/nvim-colorizer.lua' },
   {
     'zbirenbaum/copilot.lua', -- Copilot but lua
@@ -302,7 +240,6 @@ return {
       vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Explore' })
     end,
   },
-  { 'nvim-telescope/telescope.nvim' },
   {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
@@ -320,38 +257,6 @@ return {
     'max397574/better-escape.nvim',
     config = function()
       require('better_escape').setup()
-    end,
-  },
-  {
-    'isakbm/gitgraph.nvim',
-    dependencies = { 'sindrets/diffview.nvim' },
-    opts = {
-      hooks = {
-        -- Check diff of a commit
-        on_select_commit = function(commit)
-          vim.notify('DiffviewOpen ' .. commit.hash .. '^!')
-          vim.cmd(':DiffviewOpen ' .. commit.hash .. '^!')
-        end,
-        -- Check diff from commit a -> commit b
-        on_select_range_commit = function(from, to)
-          vim.notify('DiffviewOpen ' .. from.hash .. '~1..' .. to.hash)
-          vim.cmd(':DiffviewOpen ' .. from.hash .. '~1..' .. to.hash)
-        end,
-      },
-      -- symbols = {
-      --   merge_commit = '',
-      --   commit = '',
-      --   merge_commit_end = '󰜝',
-      --   commit_end = '',
-      --   GVER = '│',
-      --   GHOR = '─',
-      --   GCRD = '╭',
-      -- },
-    },
-    init = function()
-      vim.keymap.set('n', '<leader>gl', function()
-        require('gitgraph').draw({}, { all = true, max_count = 5000 })
-      end, { desc = 'new git graph' })
     end,
   },
   {
@@ -406,30 +311,13 @@ return {
     'davidmh/cspell.nvim',
   },
   {
-    'nvimtools/none-ls.nvim',
-    dependencies = {
-      'davidmh/cspell.nvim',
-    },
-    config = function()
-      local null_ls = require 'null-ls'
-
-      local cspell = require 'cspell'
-      null_ls.setup {
-        null_ls.builtins.formatting.stylua,
-        null_ls.builtins.completion.spell,
-        cspell.diagnostics,
-        cspell.code_actions,
-      }
-    end,
-  },
-  {
     'GustavEikaas/easy-dotnet.nvim',
     dependencies = { 'nvim-lua/plenary.nvim', 'ibhagwan/fzf-lua' },
     ft = 'cs',
     config = function()
       local dotnet = require 'easy-dotnet'
       dotnet.setup {
-        picker = 'fzf',
+        picker = 'snacks',
       }
     end,
     keys = {
@@ -454,14 +342,14 @@ return {
         end,
         { desc = 'Re[s]tor' },
       },
+      {
+        '<leader>xd',
+        function()
+          vim.cmd 'Dotnet'
+        end,
+        { desc = 'Dotnet' },
+      },
     },
-  },
-  { 'bluz71/vim-nightfly-colors', name = 'nightfly', lazy = false, priority = 1000 },
-  { 'bluz71/vim-moonfly-colors', name = 'moonfly', lazy = false, priority = 1000 },
-  {
-    'zenbones-theme/zenbones.nvim',
-    dependencies = 'rktjmp/lush.nvim',
-    priority = 1100,
   },
   {
     'MagicDuck/grug-far.nvim',
@@ -494,6 +382,15 @@ return {
       vim.keymap.set('n', '<C-k>', require('smart-splits').move_cursor_up)
       vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right)
       vim.keymap.set('n', '<C-\\>', require('smart-splits').move_cursor_previous)
+    end,
+  },
+  {
+    'mcauley-penney/visual-whitespace.nvim',
+    config = function()
+      require('visual-whitespace').setup()
+      vim.keymap.set('n', '<leader>uW', function()
+        require('visual-whitespace').toggle()
+      end, { desc = 'WhiteSpace' })
     end,
   },
 }

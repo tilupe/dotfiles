@@ -60,12 +60,8 @@ return {
       },
       snippets = { preset = 'luasnip' },
       sources = {
-        default = { 'neorg', 'snippets', 'lsp', 'dictionary', 'path', 'buffer' }, -- , 'avante_commands', 'avante_mentions', 'avante_files'
+        default = { 'snippets', 'lsp', 'dictionary', 'path', 'buffer' }, -- , 'avante_commands', 'avante_mentions', 'avante_files'
         providers = {
-          neorg = {
-            name = 'neorg',
-            module = 'blink.compat.source',
-          },
           dictionary = {
             module = 'blink-cmp-dictionary',
             name = 'Dict',
