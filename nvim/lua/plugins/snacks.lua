@@ -79,7 +79,7 @@ return {
         }
       end, { desc = 'Spell suggestsion' })
       vim.keymap.set('n', '<leader><space>', function()
-        Snacks.picker.smart { layout = { preset = 'ivy', layout = { position = 'bottom' } } }
+        Snacks.picker.smart { }
       end, { desc = 'files' })
       vim.keymap.set('n', '<leader>ff', function()
         Snacks.picker()

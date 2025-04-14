@@ -56,12 +56,15 @@ return {
     config = true,
     keys = {
 
-      { '<leader>gs', '<CMD>Gitsigns stage_hunk<CR>', { desc = 'stage hunk' } },
-      { '<leader>gu', '<CMD>Gitsigns undo_stage_hunk<CR>', { desc = 'undo-stage hunk' } },
-      { '<leader>gr', '<CMD>Gitsigns reset_hunk<CR>', { desc = 'reset-hunk' } },
-      { ']g', '<CMD>Gitsigns next_hunk<CR>', { desc = 'down-hunk' } },
-      { '[g', '<CMD>Gitsigns prev_hunk<CR>', { desc = 'up-hunk' } },
-      { '<leader>gb', '<CMD>Gitsigns blame<CR>', { desc = 'blame' } },
+      { '<leader>gj', '<CMD>Gitsigns next_hunk<CR>', { desc = 'Next Hunk' } },
+      { '<leader>gk', '<CMD>Gitsigns prev_hunk<CR>', { desc = 'Prev Hunk' } },
+      { '<leader>gs', '<CMD>Gitsigns stage_hunk<CR>', { desc = 'Stage Hunk' } },
+      { '<leader>gS', '<CMD>Gitsigns undo_stage_hunk<CR>', { desc = 'Undo Stage Hunk' } },
+      { '<leader>gr', '<CMD>Gitsigns reset_hunk<CR>', { desc = 'Reset Hunk' } },
+      { '<leader>gb', '<CMD>Gitsigns blame<CR>', { desc = 'Blame' } },
+      { '<leader>gB', '<CMD>Gitsigns blame_line<CR>', { desc = 'Blame Line' } },
+      { '<leader>gp', '<CMD>Gitsigns preview_hunk<CR>', { desc = 'Preview Hunk' } },
+      { '<leader>gP', '<CMD>Gitsigns preview_hunk_inline<CR>', { desc = 'Preview Hunk Inline' } },
     },
   },
   {
@@ -249,9 +252,7 @@ return {
   },
   {
     'stevearc/overseer.nvim',
-    config = function()
-      require 'config.overseer'
-    end,
+    config = true,
   },
   {
     'max397574/better-escape.nvim',
@@ -393,4 +394,13 @@ return {
       end, { desc = 'WhiteSpace' })
     end,
   },
+  { 'ThePrimeagen/vim-be-good' },
+  {
+    'm4xshen/hardtime.nvim',
+    dependencies = { 'MunifTanjim/nui.nvim' },
+    config = true,
+    keys = {
+      { '<leader>gH', '<CMD>Hardtime toggle<CR>', { desc = 'Hardtime' } },
+    },
+  }
 }

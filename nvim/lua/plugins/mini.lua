@@ -30,8 +30,18 @@ return {
       require('mini.ai').setup()
     end,
   },
-  { 'echasnovski/mini.bracketed', version = '*', config = true },
-  { 'echasnovski/mini.surround', version = '*', config = true },
+  { 'echasnovski/mini.bracketed', version = '*', config = function()
+
+      require('mini.bracketed').setup()
+  end,
+  },
+  {
+    'echasnovski/mini.surround',
+    version = '*',
+    config = function()
+      require('mini.surround').setup()
+    end,
+  },
   {
     'echasnovski/mini.clue',
     version = '*',

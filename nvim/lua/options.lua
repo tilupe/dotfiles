@@ -105,3 +105,9 @@ vim.g.have_nerd_font = true
 
 vim.opt.list = true
 vim.opt.listchars = { tab = '│ ' }
+
+
+-- vim.diagnostic.config({
+--   virtual_text = { current_line = true }
+-- })
+
