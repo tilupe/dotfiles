@@ -218,7 +218,6 @@ return {
       end, { desc = 'Neogit' })
     end,
   },
-  { 'rcarriga/nvim-dap-ui', dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' }, verison = '*' },
   { 'Tastyep/structlog.nvim', version = '*' },
   {
     'stevearc/oil.nvim',
@@ -387,12 +386,17 @@ return {
   },
   {
     'mcauley-penney/visual-whitespace.nvim',
-    config = function()
-      require('visual-whitespace').setup()
-      vim.keymap.set('n', '<leader>uW', function()
-        require('visual-whitespace').toggle()
-      end, { desc = 'WhiteSpace' })
-    end,
+    config = true,
+    opts = {
+      enable = true,
+    },
+    keys = {
+      { '<leader>uW', 
+        function ()
+        require("visual-whitespace").toggle()
+      end
+        , { desc = 'WhiteSpace' } },
+    },
   },
   { 'ThePrimeagen/vim-be-good' },
   {

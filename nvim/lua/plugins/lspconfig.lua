@@ -55,25 +55,18 @@ return {
       local rzls_lib_path = vim.fs.joinpath(vim.fn.resolve(vim.fn.exepath 'rzls'), '..', '..', 'lib', 'rzls')
       local design_time_target_path = vim.fs.joinpath(rzls_lib_path, 'Targets', 'Microsoft.NET.Sdk.Razor.DesignTime.targets')
       local razor_compiler_path = vim.fs.joinpath(rzls_lib_path, 'Microsoft.CodeAnalysis.Razor.Compiler.dll')
-      require('roslyn').setup {
-        --config = {
-        -- Here you can pass in any options that that you would like to pass to `vim.lsp.start`.
-        -- Use `:h vim.lsp.ClientConfig` to see all possible options.
-        -- The only options that are overwritten and won't have any effect by setting here:
-        --     - `name`
-        --     - `cmd`
-        --     - `root_dir`
-        --},
-        exe = 'Microsoft.CodeAnalysis.LanguageServer',
-        args = {
-          '--stdio',
-          '--logLevel=Information',
+      local cmd = {
+        'Microsoft.CodeAnalysis.LanguageServer',
+        '--stdio',
+        '--logLevel=Information',
           '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
           '--razorSourceGenerator=' .. razor_compiler_path,
           '--razorDesignTimePath=' .. design_time_target_path,
-        },
+      }
+      require('roslyn').setup {
         config = {
           handlers = require 'rzls.roslyn_handlers',
+          cmd = cmd,
         },
         settings = {
           ['csharp|inlay_hints'] = {
