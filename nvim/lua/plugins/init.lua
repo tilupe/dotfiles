@@ -384,27 +384,27 @@ return {
       vim.keymap.set('n', '<C-\\>', require('smart-splits').move_cursor_previous)
     end,
   },
-  {
-    'mcauley-penney/visual-whitespace.nvim',
-    config = true,
-    opts = {
-      enable = true,
-    },
-    keys = {
-      { '<leader>uW', 
-        function ()
-        require("visual-whitespace").toggle()
-      end
-        , { desc = 'WhiteSpace' } },
-    },
-  },
-  { 'ThePrimeagen/vim-be-good' },
-  {
-    'm4xshen/hardtime.nvim',
-    dependencies = { 'MunifTanjim/nui.nvim' },
-    config = true,
-    keys = {
-      { '<leader>gH', '<CMD>Hardtime toggle<CR>', { desc = 'Hardtime' } },
-    },
-  }
+  -- {
+  --   'mcauley-penney/visual-whitespace.nvim',
+  --   config = true,
+  --   opts = {
+  --     enable = true,
+  --   },
+  --   keys = {
+  --     { '<leader>uW', 
+  --       function ()
+  --       require("visual-whitespace").toggle()
+  --     end
+  --       , { desc = 'WhiteSpace' } },
+  --   },
+  -- },
+  -- { 'ThePrimeagen/vim-be-good' },
+  -- {
+  --   'm4xshen/hardtime.nvim',
+  --   dependencies = { 'MunifTanjim/nui.nvim' },
+  --   config = true,
+  --   keys = {
+  --     { '<leader>gH', '<CMD>Hardtime toggle<CR>', { desc = 'Hardtime' } },
+  --   },
+  -- }
 }
