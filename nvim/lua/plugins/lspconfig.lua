@@ -16,23 +16,29 @@ return {
     },
     version = '*',
     config = function()
-      local lspconfig = require 'lspconfig'
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
-      lspconfig.lua_ls.setup { capabilities = capabilities }
-      lspconfig.nixd.setup { capabilities = capabilities }
-      lspconfig.gopls.setup { capabilities = capabilities }
-      lspconfig.rust_analyzer.setup { capabilities = capabilities }
-      lspconfig.yamlls.setup { capabilities = capabilities }
-      lspconfig.sqls.setup { capabilities = capabilities }
-      lspconfig.htmx.setup { capabilities = capabilities }
-      lspconfig.markdown_oxide.setup { capabilities = capabilities }
-      lspconfig.pyright.setup { capabilities = capabilities }
-      lspconfig.ts_ls.setup { capabilities = capabilities }
-
-      capabilities.textDocument.completion.completionItem.snippetSupport = true
-      require('lspconfig').html.setup {
-        capabilities = capabilities,
+      vim.diagnostic.config {
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = '✘',
+            [vim.diagnostic.severity.WARN] = '▲',
+            [vim.diagnostic.severity.HINT] = '⚑',
+            [vim.diagnostic.severity.INFO] = '»',
+          },
+        },
       }
+      local lspconfig = require 'lspconfig'
+      lspconfig.lua_ls.setup {}
+      lspconfig.nixd.setup {}
+      lspconfig.gopls.setup {}
+      lspconfig.rust_analyzer.setup {}
+      lspconfig.yamlls.setup {}
+      lspconfig.sqls.setup {}
+      lspconfig.htmx.setup {}
+      lspconfig.markdown_oxide.setup {}
+      lspconfig.pyright.setup {}
+      lspconfig.ts_ls.setup {}
+
+      require('lspconfig').html.setup {}
     end,
   },
   {
@@ -59,9 +65,9 @@ return {
         'Microsoft.CodeAnalysis.LanguageServer',
         '--stdio',
         '--logLevel=Information',
-          '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
-          '--razorSourceGenerator=' .. razor_compiler_path,
-          '--razorDesignTimePath=' .. design_time_target_path,
+        '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
+        '--razorSourceGenerator=' .. razor_compiler_path,
+        '--razorDesignTimePath=' .. design_time_target_path,
       }
       require('roslyn').setup {
         config = {
