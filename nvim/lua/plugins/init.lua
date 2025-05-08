@@ -75,6 +75,7 @@ return {
       { '<leader>U', ':UndotreeToggle<cr>' },
     },
   }, -- see undo tree
+  { 'rebelot/kanagawa.nvim', priority = 1000, config = true },
   {
     'neanias/everforest-nvim',
     priority = 1000,
@@ -391,7 +392,7 @@ return {
   --     enable = true,
   --   },
   --   keys = {
-  --     { '<leader>uW', 
+  --     { '<leader>uW',
   --       function ()
   --       require("visual-whitespace").toggle()
   --     end
