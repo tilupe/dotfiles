@@ -1,5 +1,4 @@
 return {
-
   {
     'saghen/blink.compat',
     version = '*',
@@ -61,8 +60,13 @@ return {
       },
       snippets = { preset = 'luasnip' },
       sources = {
-        default = { 'snippets', 'lsp', 'path', 'buffer' }, -- , 'avante_commands', 'avante_mentions', 'avante_files'
+        default = { 'lazydev', 'snippets', 'lsp', 'path', 'buffer' }, -- , 'avante_commands', 'avante_mentions', 'avante_files'
         providers = {
+          lazydev = {
+            name = 'LazyDev',
+            module = 'lazydev.integrations.blink',
+            score_offset = 100,
+          },
           avante = {
             module = 'blink-cmp-avante',
             name = 'Avante',

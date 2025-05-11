@@ -53,19 +53,50 @@ return {
   {
     'lewis6991/gitsigns.nvim',
     event = 'BufRead',
-    config = true,
-    keys = {
+    config = function()
+      require('gitsigns').setup {
+        signs = {
+          add = { text = '▌' },
+          change = { text = '▌' },
+          delete = { text = '▌' },
+          topdelete = { text = '▌' },
+          changedelete = { text = '▌' },
+        },
+        on_attach = function(bufnr)
+          local gs = package.loaded.gitsigns
+          vim.keymap.set('n', '<leader>gj', function()
+            if vim.wo.diff then
+              return ']c'
+            end
+            vim.schedule(function()
+              gs.next_hunk()
+            end)
+            return '<Ignore>'
+          end, { expr = true, desc = 'Next Hunk' })
 
-      { '<leader>gj', '<CMD>Gitsigns next_hunk<CR>', { desc = 'Next Hunk' } },
-      { '<leader>gk', '<CMD>Gitsigns prev_hunk<CR>', { desc = 'Prev Hunk' } },
-      { '<leader>gs', '<CMD>Gitsigns stage_hunk<CR>', { desc = 'Stage Hunk' } },
-      { '<leader>gS', '<CMD>Gitsigns undo_stage_hunk<CR>', { desc = 'Undo Stage Hunk' } },
-      { '<leader>gr', '<CMD>Gitsigns reset_hunk<CR>', { desc = 'Reset Hunk' } },
-      { '<leader>gb', '<CMD>Gitsigns blame<CR>', { desc = 'Blame' } },
-      { '<leader>gB', '<CMD>Gitsigns blame_line<CR>', { desc = 'Blame Line' } },
-      { '<leader>gp', '<CMD>Gitsigns preview_hunk<CR>', { desc = 'Preview Hunk' } },
-      { '<leader>gP', '<CMD>Gitsigns preview_hunk_inline<CR>', { desc = 'Preview Hunk Inline' } },
-    },
+          vim.keymap.set('n', '<leader>gk', function()
+            if vim.wo.diff then
+              return '[c'
+            end
+            vim.schedule(function()
+              gs.prev_hunk()
+            end)
+            return '<Ignore>'
+          end, { expr = true, desc = 'Prev Hunk' })
+
+          vim.keymap.set('n', '<leader>gj', '<CMD>Gitsigns next_hunk<CR>', { desc = 'Next Hunk' })
+          vim.keymap.set('n', '<leader>gk', '<CMD>Gitsigns prev_hunk<CR>', { desc = 'Prev Hunk' })
+          vim.keymap.set('n', '<leader>gs', '<CMD>Gitsigns stage_hunk<CR>', { desc = 'Stage Hunk' })
+          vim.keymap.set('n', '<leader>gS', '<CMD>Gitsigns undo_stage_hunk<CR>', { desc = 'Undo Stage Hunk' })
+          vim.keymap.set('n', '<leader>gr', '<CMD>Gitsigns reset_hunk<CR>', { desc = 'Reset Hunk' })
+          vim.keymap.set('n', '<leader>gb', '<CMD>Gitsigns blame<CR>', { desc = 'Blame' })
+          vim.keymap.set('n', '<leader>gB', '<CMD>Gitsigns blame_line<CR>', { desc = 'Blame Line' })
+          vim.keymap.set('n', '<leader>gp', '<CMD>Gitsigns preview_hunk<CR>', { desc = 'Preview Hunk' })
+          vim.keymap.set('n', '<leader>gP', '<CMD>Gitsigns preview_hunk_inline<CR>', { desc = 'Preview Hunk Inline' })
+        end,
+      }
+    end,
+    keys = {},
   },
   {
     'mbbill/undotree',

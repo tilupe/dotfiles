@@ -1,33 +1,24 @@
 return {
   {
-    'neovim/nvim-lspconfig',
-    dependencies = {
-      {
-        'folke/lazydev.nvim',
-        ft = 'lua', -- only load on lua files
-        opts = {
-          library = {
-            { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-            'nvim-dap-ui',
-          },
+    {
+      'folke/lazydev.nvim',
+      ft = 'lua', -- only load on lua files
+      opts = {
+        library = {
+          { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+          'nvim-dap-ui',
         },
       },
+    },
+    'neovim/nvim-lspconfig',
+    dependencies = {
+      { 'folke/lazydev.nvim' },
       { 'saghen/blink.cmp' },
     },
     version = '*',
     config = function()
-      vim.diagnostic.config {
-        signs = {
-          text = {
-            [vim.diagnostic.severity.ERROR] = '✘',
-            [vim.diagnostic.severity.WARN] = '▲',
-            [vim.diagnostic.severity.HINT] = '⚑',
-            [vim.diagnostic.severity.INFO] = '»',
-          },
-        },
-      }
       local lspconfig = require 'lspconfig'
-      lspconfig.lua_ls.setup {}
+      --lspconfig.lua_ls.setup {}
       lspconfig.nixd.setup {}
       lspconfig.gopls.setup {}
       lspconfig.rust_analyzer.setup {}
