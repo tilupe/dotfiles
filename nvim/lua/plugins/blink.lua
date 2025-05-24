@@ -60,8 +60,15 @@ return {
       },
       snippets = { preset = 'luasnip' },
       sources = {
-        default = { 'lazydev', 'snippets', 'lsp', 'path', 'buffer' }, -- , 'avante_commands', 'avante_mentions', 'avante_files'
+        default = { 'lazydev', 'easy-dotnet', 'snippets', 'lsp', 'path', 'buffer' }, -- , 'avante_commands', 'avante_mentions', 'avante_files'
         providers = {
+          ['easy-dotnet'] = {
+            name = 'easy-dotnet',
+            enabled = true,
+            module = 'easy-dotnet.completion.blink',
+            score_offset = 10000,
+            async = true,
+          },
           lazydev = {
             name = 'LazyDev',
             module = 'lazydev.integrations.blink',

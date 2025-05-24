@@ -344,7 +344,7 @@ return {
   },
   {
     'GustavEikaas/easy-dotnet.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim', 'ibhagwan/fzf-lua' },
+    dependencies = { 'nvim-lua/plenary.nvim', 'folke/snacks.nvim' },
     ft = 'cs',
     config = function()
       local dotnet = require 'easy-dotnet'
@@ -390,16 +390,6 @@ return {
     end,
   },
   {
-    'ibhagwan/fzf-lua',
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
-    config = function()
-      require 'config.fzf-lua'
-    end,
-  },
-  {},
-  {
     'ramilito/kubectl.nvim',
     config = function()
       require('kubectl').setup()
@@ -415,6 +405,19 @@ return {
       vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right)
       vim.keymap.set('n', '<C-\\>', require('smart-splits').move_cursor_previous)
     end,
+  },
+  {
+    'MonsieurTib/neonuget',
+    config = function()
+      require('neonuget').setup {
+        -- Optional configuration
+        dotnet_path = 'dotnet', -- Path to dotnet CLI
+        default_project = nil, -- Auto-detected, or specify path like "./MyProject/MyProject.csproj"
+      }
+    end,
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
   },
   -- {
   --   'mcauley-penney/visual-whitespace.nvim',

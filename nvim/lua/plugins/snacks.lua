@@ -83,7 +83,7 @@ return {
       end, { desc = 'files' })
       vim.keymap.set('n', '<leader>ff', function()
         Snacks.picker()
-      end, { desc = 'fzfLua' })
+      end, { desc = 'Pickers' })
       vim.keymap.set('n', '<leader>fs', function()
         Snacks.picker.grep()
       end, { desc = 'string live grep' })
@@ -111,9 +111,9 @@ return {
       vim.keymap.set('n', '<leader>fz', function()
         Snacks.picker.zoxide { layout = { preset = 'ivy', layout = { position = 'bottom' } } }
       end, { desc = 'zoxide' })
-      -- vim.keymap.set('v', '<C-s>', function()
-      --   vim.cmd 'FzfLua grep_visual'
-      -- end, { desc = 'grep string' })
+      vim.keymap.set('v', '<C-s>', function()
+        Snacks.picker.grep_word()
+      end, { desc = 'grep string' })
 
       vim.keymap.set('n', '<leader>u', '<cmd>Snacks.toggle<CR>', { noremap = true, silent = true })
       vim.keymap.set('n', '<leader>z', function()
