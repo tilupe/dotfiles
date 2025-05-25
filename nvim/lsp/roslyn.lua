@@ -15,7 +15,6 @@ return
   cmd = cmd,
   filetypes = { 'cs', 'razor', 'cshtml' },
   on_attach = function()
-    print 'This will run when the server attaches!'
   end,
   settings = {
     ['csharp|inlay_hints'] = {
