@@ -19,28 +19,23 @@ return {
   {
     'echasnovski/mini.statusline',
     version = '*',
-    config = function()
-      require('mini.statusline').setup()
-    end,
+    config = true,
   },
   {
     'echasnovski/mini.ai',
     event = 'VeryLazy',
-    config = function()
-      require('mini.ai').setup()
-    end,
+    config = true,
   },
-  { 'echasnovski/mini.bracketed', version = '*', config = function()
-
-      require('mini.bracketed').setup()
-  end,
+  {
+    'echasnovski/mini.bracketed',
+    version = '*',
+    config = true,
   },
+  { 'echasnovski/mini.pairs', version = '*', config = true },
   {
     'echasnovski/mini.surround',
     version = '*',
-    config = function()
-      require('mini.surround').setup()
-    end,
+    config = true,
   },
   {
     'echasnovski/mini.clue',
