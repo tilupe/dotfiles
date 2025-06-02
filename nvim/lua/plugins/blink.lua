@@ -18,72 +18,93 @@ return {
     },
     version = '1.*',
     build = 'nix run .#build-plugin',
-    ---@module 'blink.cmp'
-    ---@type blink.cmp.Config
-    opts = {
-      keymap = {
-        preset = 'default',
-        ['<C-f>'] = {},
-      },
-      completion = {
-        trigger = {
-          show_on_keyword = true,
-          show_on_trigger_character = true,
-          show_on_insert_on_trigger_character = true,
-          show_on_accept_on_trigger_character = true,
+    config = function()
+      vim.cmd 'highlight Pmenu guibg=none'
+      vim.cmd 'highlight PmenuExtra guibg=none'
+      vim.cmd 'highlight FloatBorder guibg=none'
+      vim.cmd 'highlight NormalFloat guibg=none'
+      require('blink.cmp').setup {
+        keymap = {
+          preset = 'default',
+          ['<C-f>'] = {},
         },
-        documentation = {
-          auto_show = true,
-          auto_show_delay_ms = 500,
-          window = { border = 'single' },
-        },
-        accept = { auto_brackets = { enabled = true } },
-        list = { selection = {
-          preselect = function(ctx)
-            return ctx.mode ~= 'cmdline'
-          end,
-        } },
-      },
-      fuzzy = {
-        implementation = 'prefer_rust',
-      },
-      appearance = {
-        use_nvim_cmp_as_default = true,
-        nerd_font_variant = 'mono',
-      },
-
-      signature = {
-        enabled = true,
-        window = {
-          show_documentation = true,
-        },
-      },
-      snippets = { preset = 'luasnip' },
-      sources = {
-        default = { 'lazydev', 'easy-dotnet', 'snippets', 'lsp', 'path', 'buffer' }, -- , 'avante_commands', 'avante_mentions', 'avante_files'
-        providers = {
-          ['easy-dotnet'] = {
-            name = 'easy-dotnet',
-            enabled = true,
-            module = 'easy-dotnet.completion.blink',
-            score_offset = 10000,
-            async = true,
+        completion = {
+          menu = {
+            border = nil,
+            scrolloff = 1,
+            scrollbar = false,
+            draw = {
+              columns = {
+                { 'kind_icon' },
+                { 'label', 'label_description', gap = 1 },
+                { 'kind' },
+                { 'source_name' },
+              },
+            },
           },
-          lazydev = {
-            name = 'LazyDev',
-            module = 'lazydev.integrations.blink',
-            score_offset = 100,
+          trigger = {
+            show_on_keyword = true,
+            show_on_trigger_character = true,
+            show_on_insert_on_trigger_character = true,
+            show_on_accept_on_trigger_character = true,
           },
-          avante = {
-            module = 'blink-cmp-avante',
-            name = 'Avante',
-            opts = {
-              -- options for blink-cmp-avante
+          documentation = {
+            auto_show = true,
+            auto_show_delay_ms = 500,
+            window = {
+              border = nil,
+              scrollbar = false,
+              winhighlight = 'Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,EndOfBuffer:BlinkCmpDoc',
+            },
+          },
+          accept = { auto_brackets = { enabled = true } },
+          list = { selection = {
+            preselect = function(ctx)
+              return ctx.mode ~= 'cmdline'
+            end,
+          } },
+        },
+        fuzzy = {
+          implementation = 'prefer_rust',
+        },
+        appearance = {
+          use_nvim_cmp_as_default = true,
+          nerd_font_variant = 'mono',
+        },
+        signature = {
+          enabled = true,
+          window = {
+            show_documentation = true,
+          },
+        },
+        snippets = { preset = 'luasnip' },
+        sources = {
+          default = { 'lazydev', 'easy-dotnet', 'snippets', 'lsp', 'path', 'buffer' }, -- , 'avante_commands', 'avante_mentions', 'avante_files'
+          providers = {
+            ['easy-dotnet'] = {
+              name = 'easy-dotnet',
+              enabled = true,
+              module = 'easy-dotnet.completion.blink',
+              score_offset = 10000,
+              async = true,
+            },
+            lazydev = {
+              name = 'LazyDev',
+              module = 'lazydev.integrations.blink',
+              score_offset = 100,
+            },
+            avante = {
+              module = 'blink-cmp-avante',
+              name = 'Avante',
+              opts = {
+                -- options for blink-cmp-avante
+              },
             },
           },
         },
-      },
-    },
-    opts_extend = { 'sources.default' },
+        opts_extend = { 'sources.default' },
+      }
+      require('luasnip.loaders.from_vscode').lazy_load()
+    end,
   },
 }

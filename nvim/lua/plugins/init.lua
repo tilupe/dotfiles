@@ -289,9 +289,7 @@ return {
       'rafamadriz/friendly-snippets',
     },
     version = '*',
-    config = function()
-      require 'config.luasnip'
-    end,
+    config = true,
   },
   {
     'mfussenegger/nvim-dap',
