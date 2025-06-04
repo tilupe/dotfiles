@@ -28,6 +28,10 @@ return {
           preset = 'default',
           ['<C-f>'] = {},
         },
+        cmdline = {
+          enabled = true,
+          completion = { menu = { auto_show = true } },
+        },
         completion = {
           menu = {
             border = nil,
@@ -102,7 +106,6 @@ return {
             },
           },
         },
-        opts_extend = { 'sources.default' },
       }
       require('luasnip.loaders.from_vscode').lazy_load()
     end,

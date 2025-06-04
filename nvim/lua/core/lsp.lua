@@ -40,7 +40,6 @@ vim.diagnostic.config {
 }
 
 -- Extras
-
 local function restart_lsp(bufnr)
   bufnr = bufnr or vim.api.nvim_get_current_buf()
   local clients
