@@ -296,6 +296,7 @@ return {
           nix = { 'nixfmt' },
           json = { 'jq' },
           sql = { 'sql_formatter', lsp_format = 'never' },
+          kdl = { 'kdlfmt' },
           --['*'] = { 'injected' }, -- enables injected-lang formatting for all filetypes
         },
         default_format_opts = {
