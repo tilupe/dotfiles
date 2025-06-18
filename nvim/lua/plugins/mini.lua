@@ -16,11 +16,11 @@ return {
   --     end, { desc = 'Mini Files Root' })
   --   end,
   -- },
-  {
-    'echasnovski/mini.statusline',
-    version = '*',
-    config = true,
-  },
+  -- {
+  --   'echasnovski/mini.statusline',
+  --   version = '*',
+  --   config = true,
+  -- },
   {
     'echasnovski/mini.ai',
     event = 'VeryLazy',

@@ -1,3 +1,18 @@
+local excluded = {
+  'node_modules/',
+  'dist/',
+  '.next/',
+  '.vite/',
+  '.git/',
+  '.gitlab/',
+  'build/',
+  'target/',
+  'dadbod_ui/tmp/',
+  'dadbod_ui/dev/',
+  '%__virtual.cs$',
+  '%__virtual.html$',
+}
+
 return {
   {
     'folke/snacks.nvim',
@@ -58,18 +73,19 @@ return {
             -- wo = { wrap = true } -- Wrap notifications
           },
         },
+        exclude = excluded,
       }
 
       -- Picker
 
-      --                                                                                                                                                                                                                reallyif 
+      --                                                                                                                                                                                                                reallyif
       vim.keymap.set('n', 'z=', function()
-      local current_line = vim.api.nvim_get_current_line()
-      local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+        local current_line = vim.api.nvim_get_current_line()
+        local row, col = unpack(vim.api.nvim_win_get_cursor(0))
         Snacks.picker.spelling {
           layout = {
             layout = {
-              row = current_line,
+              row = row,
               col = col,
               width = 0.2,
               min_width = 30,
@@ -79,7 +95,7 @@ return {
         }
       end, { desc = 'Spell suggestsion' })
       vim.keymap.set('n', '<leader><space>', function()
-        Snacks.picker.smart { }
+        Snacks.picker.smart {}
       end, { desc = 'files' })
       vim.keymap.set('n', '<leader>ff', function()
         Snacks.picker()

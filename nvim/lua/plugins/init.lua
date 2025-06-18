@@ -490,15 +490,27 @@ return {
     end,
   },
   {
-    'mrjones2014/smart-splits.nvim',
-    config = function()
-      vim.keymap.set('n', '<C-h>', require('smart-splits').move_cursor_left)
-      vim.keymap.set('n', '<C-j>', require('smart-splits').move_cursor_down)
-      vim.keymap.set('n', '<C-k>', require('smart-splits').move_cursor_up)
-      vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right)
-      vim.keymap.set('n', '<C-\\>', require('smart-splits').move_cursor_previous)
-    end,
+    'swaits/zellij-nav.nvim',
+    lazy = true,
+    event = 'VeryLazy',
+    keys = {
+      { '<c-h>', '<cmd>ZellijNavigateLeftTab<cr>', { silent = true, desc = 'navigate left or tab' } },
+      { '<c-j>', '<cmd>ZellijNavigateDown<cr>', { silent = true, desc = 'navigate down' } },
+      { '<c-k>', '<cmd>ZellijNavigateUp<cr>', { silent = true, desc = 'navigate up' } },
+      { '<c-l>', '<cmd>ZellijNavigateRightTab<cr>', { silent = true, desc = 'navigate right or tab' } },
+    },
+    opts = {},
   },
+  -- {
+  --   'mrjones2014/smart-splits.nvim',
+  --   config = function()
+  --     vim.keymap.set('n', '<C-h>', require('smart-splits').move_cursor_left)
+  --     vim.keymap.set('n', '<C-j>', require('smart-splits').move_cursor_down)
+  --     vim.keymap.set('n', '<C-k>', require('smart-splits').move_cursor_up)
+  --     vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right)
+  --     vim.keymap.set('n', '<C-\\>', require('smart-splits').move_cursor_previous)
+  --   end,
+  -- },
   {
     'MonsieurTib/neonuget',
     config = function()

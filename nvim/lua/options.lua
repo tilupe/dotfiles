@@ -10,7 +10,7 @@ vim.opt.confirm = true
 vim.opt.cursorline = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
-vim.opt.hidden = true
+vim.opt.hidden = false
 vim.opt.hlsearch = true
 vim.opt.joinspaces = false
 vim.opt.mouse = 'a'
@@ -35,6 +35,7 @@ vim.opt.timeoutlen = 300
 vim.opt.title = true
 vim.opt.fixeol = false
 
+-- test
 vim.opt.undofile = true -- save undo history
 local keyset = vim.keymap.set
 keyset('i', ',', ',<C-g>U')

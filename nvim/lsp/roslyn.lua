@@ -10,12 +10,12 @@ local cmd = {
   '--razorSourceGenerator=' .. razor_compiler_path,
   '--razorDesignTimePath=' .. design_time_target_path,
 }
-return
-  {
+
+vim.lsp.config('roslyn', { handlers = require 'rzls.roslyn_handlers', })
+return {
   cmd = cmd,
   filetypes = { 'cs', 'razor', 'cshtml' },
-  on_attach = function()
-  end,
+  on_attach = function() end,
   settings = {
     ['csharp|inlay_hints'] = {
       csharp_enable_inlay_hints_for_implicit_object_creation = true,
@@ -48,5 +48,4 @@ return
       dotnet_compiler_diagnostics_scope = 'fullSolution',
     },
   },
-  
 }
