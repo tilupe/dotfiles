@@ -10,10 +10,10 @@ vim.keymap.set('n', 'g;', 'g;zvzz')
 -- Better escape using jk in insert and terminal mode
 vim.keymap.set('i', 'jk', '<Esc>')
 vim.keymap.set('t', 'jk', '<C-\\><C-n>')
-vim.keymap.set('t', '<C-h>', '<C-\\><C-n><C-w>h')
-vim.keymap.set('t', '<C-j>', '<C-\\><C-n><C-w>j')
-vim.keymap.set('t', '<C-k>', '<C-\\><C-n><C-w>k')
-vim.keymap.set('t', '<C-l>', '<C-\\><C-n><C-w>l')
+vim.keymap.set('t', '<M-h>', '<C-\\><C-n><C-w>h')
+vim.keymap.set('t', '<M-j>', '<C-\\><C-n><C-w>j')
+vim.keymap.set('t', '<M-k>', '<C-\\><C-n><C-w>k')
+vim.keymap.set('t', '<M-l>', '<C-\\><C-n><C-w>l')
 
 -- Better indent and moving
 vim.keymap.set('v', '<', '<gv')

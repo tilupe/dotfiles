@@ -486,21 +486,42 @@ return {
   {
     'ramilito/kubectl.nvim',
     config = function()
-      require('kubectl').setup()
-      vim.keymap.set('n', '<leader>k', '<cmd>lua require("kubectl").toggle()<cr>', { noremap = true, silent = true })
+      require('kubectl').setup({
+
+      })
+      vim.keymap.set('n', '<leader>kk', function()
+        require("kubectl").toggle({true})
+      end, { noremap = true, silent = true })
     end,
   },
   {
-    'swaits/zellij-nav.nvim',
-    lazy = true,
-    event = 'VeryLazy',
-    keys = {
-      { '<c-h>', '<cmd>ZellijNavigateLeftTab<cr>', { silent = true, desc = 'navigate left or tab' } },
-      { '<c-j>', '<cmd>ZellijNavigateDown<cr>', { silent = true, desc = 'navigate down' } },
-      { '<c-k>', '<cmd>ZellijNavigateUp<cr>', { silent = true, desc = 'navigate up' } },
-      { '<c-l>', '<cmd>ZellijNavigateRightTab<cr>', { silent = true, desc = 'navigate right or tab' } },
+    'letieu/wezterm-move.nvim',
+    keys = { -- Lazy loading, don't need call setup() function
+      {
+        '<M-h>',
+        function()
+          require('wezterm-move').move 'h'
+        end,
+      },
+      {
+        '<M-j>',
+        function()
+          require('wezterm-move').move 'j'
+        end,
+      },
+      {
+        '<M-k>',
+        function()
+          require('wezterm-move').move 'k'
+        end,
+      },
+      {
+        '<M-l>',
+        function()
+          require('wezterm-move').move 'l'
+        end,
+      },
     },
-    opts = {},
   },
   -- {
   --   'mrjones2014/smart-splits.nvim',
