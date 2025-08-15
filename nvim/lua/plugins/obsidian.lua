@@ -8,11 +8,11 @@ return {
         completions = { blink = { enabled = true } },
       }
 
-      vim.treesitter.language.register('markdown', 'vimwiki')
+      vim.treesitter.language.register('markdown', 'vimwiki', 'octo')
     end,
   },
   {
-    'epwalsh/obsidian.nvim',
+    'obsidian-nvim/obsidian.nvim',
     version = '*', -- recommended, use latest release instead of latest commit
     lazy = true,
     ft = 'markdown',
@@ -38,6 +38,13 @@ return {
           path = '~/Documents/notes',
         },
       },
+      picker = {
+        name = "snacks.pick"
+      },
+      completion = {
+        nvim_cmp = false,
+        blink = true,
+      }
     },
   },
 }

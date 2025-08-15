@@ -4,6 +4,15 @@ return {
     dependencies = {
       'nvim-tree/nvim-web-devicons',
       'GustavEikaas/easy-dotnet.nvim',
+      {
+        'letieu/harpoon-lualine',
+        dependencies = {
+          {
+            'ThePrimeagen/harpoon',
+            branch = 'harpoon2',
+          },
+        },
+      },
     },
     config = function()
       local job_indicator = { require('easy-dotnet.ui-modules.jobs').lualine }
@@ -43,8 +52,43 @@ return {
         sections = {
           lualine_a = { 'mode', job_indicator },
           lualine_b = { 'branch', 'diff', 'diagnostics' },
-          lualine_c = { 'filename' },
-          lualine_x = { 'encoding', 'fileformat', 'filetype' },
+          lualine_c = {
+            {
+              'macro',
+              fmt = function()
+                local reg = vim.fn.reg_recording()
+                if reg ~= '' then
+                  return 'Recording @' .. reg
+                end
+                return nil
+              end,
+              color = { fg = '#ff9e64' },
+              draw_empty = false,
+            },
+            {
+              'harpoon2',
+              icon = '♥',
+              indicators = { 'a', 's', 'q', 'w' },
+              active_indicators = { 'A', 'S', 'Q', 'W' },
+              color_active = { fg = '#00ff00' },
+              _separator = ' ',
+              no_harpoon = 'Harpoon not loaded',
+            },
+
+            'filename',
+          },
+          lualine_x = {
+            'encoding',
+            {
+              'fileformat',
+              symbols = {
+                unix = '',
+                dos = '',
+                mac = '',
+              },
+            },
+            'filetype',
+          },
           lualine_y = { 'progress' },
           lualine_z = { 'location' },
         },
@@ -57,8 +101,52 @@ return {
           lualine_z = {},
         },
         tabline = {},
-        winbar = {},
-        inactive_winbar = {},
+        winbar = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = {
+            {
+              'filename',
+              file_status = true,
+              newfile_status = false,
+              path = 3,
+
+              shorting_target = 40, -- Shortens path to leave 40 spaces in the window
+              symbols = {
+                modified = '[+]', -- Text to show when the file is modified.
+                readonly = '[-]', -- Text to show when the file is non-modifiable or readonly.
+                unnamed = '[No Name]', -- Text to show for unnamed buffers.
+                newfile = '[New]', -- Text to show for newly created file before first write
+              },
+            },
+          },
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {},
+        },
+        inactive_winbar = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = {
+            {
+              'filename',
+              file_status = true,
+              newfile_status = false,
+              path = 3,
+
+              shorting_target = 40, -- Shortens path to leave 40 spaces in the window
+              symbols = {
+                modified = '[+]', -- Text to show when the file is modified.
+                readonly = '[-]', -- Text to show when the file is non-modifiable or readonly.
+                unnamed = '[No Name]', -- Text to show for unnamed buffers.
+                newfile = '[New]', -- Text to show for newly created file before first write
+              },
+            },
+          },
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {},
+        },
         extensions = {},
       }
     end,

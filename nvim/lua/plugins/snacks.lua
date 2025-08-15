@@ -80,7 +80,6 @@ return {
 
       --                                                                                                                                                                                                                reallyif
       vim.keymap.set('n', 'z=', function()
-        local current_line = vim.api.nvim_get_current_line()
         local row, col = unpack(vim.api.nvim_win_get_cursor(0))
         Snacks.picker.spelling {
           layout = {

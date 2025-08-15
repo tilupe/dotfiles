@@ -144,6 +144,17 @@ return {
     },
   }, -- see undo tree
   {
+    'rose-pine/neovim',
+    name = 'rose-pine',
+  },
+  {
+    'folke/tokyonight.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
+  { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
+  {
     'neanias/everforest-nvim',
     priority = 1000,
     config = function()
@@ -284,7 +295,7 @@ return {
     config = function()
       require('conform').setup {
         formatters = {
-          csharpier = { command = 'dotnet', args = { 'csharpier', '--write-stdout' } },
+          csharpier = { command = 'dotnet', args = { 'csharpier', 'format','--write-stdout' } },
         },
         formatters_by_ft = {
           lua = { 'stylua' },
@@ -354,6 +365,42 @@ return {
       end, { desc = 'Neogit' })
     end,
   },
+
+  {
+    'nicolasgb/jj.nvim',
+    config = function()
+      require('jj').setup {}
+      local cmd = require 'jj.cmd'
+      vim.keymap.set('n', '<leader>jd', cmd.describe, { desc = 'JJ describe' })
+      vim.keymap.set('n', '<leader>jl', cmd.log, { desc = 'JJ log' })
+      vim.keymap.set('n', '<leader>je', cmd.edit, { desc = 'JJ edit' })
+      vim.keymap.set('n', '<leader>jn', cmd.new, { desc = 'JJ new' })
+      vim.keymap.set('n', '<leader>js', cmd.status, { desc = 'JJ status' })
+      vim.keymap.set('n', '<leader>dj', cmd.diff, { desc = 'JJ diff' })
+      vim.keymap.set('n', '<leader>sj', cmd.squash, { desc = 'JJ squash' })
+
+      -- Pickers
+      vim.keymap.set('n', '<leader>jg', function()
+        require('jj.picker').status()
+      end, { desc = 'JJ Picker status' })
+      vim.keymap.set('n', '<leader>jh', function()
+        require('jj.picker').file_history()
+      end, { desc = 'JJ Picker file history' })
+
+      -- Some functions like `describe` or `log` can take parameters
+      vim.keymap.set('n', '<leader>ji', function()
+        cmd.log {
+          revisions = '@',
+        }
+      end, { desc = 'JJ log' })
+
+      -- This is an alias i use for moving bookmarks its so good
+      vim.keymap.set('n', '<leader>jt', function()
+        cmd.j 'tug'
+        cmd.log {}
+      end, { desc = 'JJ tug' })
+    end,
+  },
   { 'Tastyep/structlog.nvim', version = '*' },
   {
     'stevearc/oil.nvim',
@@ -385,7 +432,39 @@ return {
   {
     'max397574/better-escape.nvim',
     config = function()
-      require('better_escape').setup()
+      require('better_escape').setup {
+        timeout = 300, -- after `timeout` passes, you can press the escape key and the plugin will ignore it
+        default_mappings = false, -- setting this to false removes all the default mappings
+        mappings = {
+          -- i for insert
+          i = {
+            j = {
+              -- These can all also be functions
+              k = '<Esc>',
+            },
+          },
+          c = {
+            j = {
+              k = '<C-c>',
+            },
+          },
+          t = {
+            j = {
+              k = '<C-\\><C-n>',
+            },
+          },
+          v = {
+            j = {
+              k = '<Esc>',
+            },
+          },
+          s = {
+            j = {
+              k = '<Esc>',
+            },
+          },
+        },
+      }
     end,
   },
   {
@@ -483,56 +562,35 @@ return {
       require('grug-far').setup {}
     end,
   },
-  {
-    'ramilito/kubectl.nvim',
-    config = function()
-      require('kubectl').setup({
-
-      })
-      vim.keymap.set('n', '<leader>kk', function()
-        require("kubectl").toggle({true})
-      end, { noremap = true, silent = true })
-    end,
-  },
-  {
-    'letieu/wezterm-move.nvim',
-    keys = { -- Lazy loading, don't need call setup() function
-      {
-        '<M-h>',
-        function()
-          require('wezterm-move').move 'h'
-        end,
-      },
-      {
-        '<M-j>',
-        function()
-          require('wezterm-move').move 'j'
-        end,
-      },
-      {
-        '<M-k>',
-        function()
-          require('wezterm-move').move 'k'
-        end,
-      },
-      {
-        '<M-l>',
-        function()
-          require('wezterm-move').move 'l'
-        end,
-      },
-    },
-  },
   -- {
-  --   'mrjones2014/smart-splits.nvim',
+  --   "ramilito/kubectl.nvim",
+  --   -- use a release tag to download pre-built binaries
+  --   version = '2.*',
+  --   -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+  --   build = 'cargo build --release',
+  --   dependencies = "saghen/blink.download",
   --   config = function()
-  --     vim.keymap.set('n', '<C-h>', require('smart-splits').move_cursor_left)
-  --     vim.keymap.set('n', '<C-j>', require('smart-splits').move_cursor_down)
-  --     vim.keymap.set('n', '<C-k>', require('smart-splits').move_cursor_up)
-  --     vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right)
-  --     vim.keymap.set('n', '<C-\\>', require('smart-splits').move_cursor_previous)
+  --     require("kubectl").setup({})
+  --     vim.keymap.set('n', '<leader>kk', function()
+  --       require('kubectl').toggle { true }
+  --     end, { noremap = true, silent = true })
   --   end,
   -- },
+  {
+    'mrjones2014/smart-splits.nvim',
+    config = function()
+      vim.keymap.set('n', '<M-h>', require('smart-splits').resize_left)
+      vim.keymap.set('n', '<M-j>', require('smart-splits').resize_down)
+      vim.keymap.set('n', '<M-k>', require('smart-splits').resize_up)
+      vim.keymap.set('n', '<M-l>', require('smart-splits').resize_right)
+      -- moving between splits
+      vim.keymap.set('n', '<C-h>', require('smart-splits').move_cursor_left)
+      vim.keymap.set('n', '<C-j>', require('smart-splits').move_cursor_down)
+      vim.keymap.set('n', '<C-k>', require('smart-splits').move_cursor_up)
+      vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right)
+      vim.keymap.set('n', '<C-\\>', require('smart-splits').move_cursor_previous)
+    end,
+  },
   {
     'MonsieurTib/neonuget',
     config = function()
@@ -546,27 +604,4 @@ return {
       'nvim-lua/plenary.nvim',
     },
   },
-  -- {
-  --   'mcauley-penney/visual-whitespace.nvim',
-  --   config = true,
-  --   opts = {
-  --     enable = true,
-  --   },
-  --   keys = {
-  --     { '<leader>uW',
-  --       function ()
-  --       require("visual-whitespace").toggle()
-  --     end
-  --       , { desc = 'WhiteSpace' } },
-  --   },
-  -- },
-  -- { 'ThePrimeagen/vim-be-good' },
-  -- {
-  --   'm4xshen/hardtime.nvim',
-  --   dependencies = { 'MunifTanjim/nui.nvim' },
-  --   config = true,
-  --   keys = {
-  --     { '<leader>gH', '<CMD>Hardtime toggle<CR>', { desc = 'Hardtime' } },
-  --   },
-  -- }
 }

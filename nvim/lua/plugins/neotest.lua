@@ -19,10 +19,14 @@ return {
         adapters = {
           require 'neotest-python' {
             dap = { justMyCode = false },
+            adapter_name = 'netcoredbg',
           },
           require 'neotest-plenary',
           require 'neotest-dotnet' {
             discovery_root = 'solution', -- Default
+            dotnet_additional_args = {
+              '--verbosity detailed',
+            },
           },
         },
       }
@@ -33,7 +37,7 @@ return {
       vim.keymap.set('n', '<leader>tF', "<cmd>lua require('plugins.dap.functions').run(vim.fn.expand('%'))<cr>", { desc = 'File Debug' })
       vim.keymap.set('n', '<leader>tL', "<cmd>lua require('plugins.dap.functions').run_last()<cr>", { desc = 'Last Debug' })
       vim.keymap.set('n', '<leader>ta', "<cmd>lua require('neotest').run.attach()<cr>", { desc = 'Attach' })
-      vim.keymap.set('n', '<leader>tf', "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", { desc = 'File' })
+      vim.keymap.set('n', '<leader>tf', "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", { desc = 'File' })
       vim.keymap.set('n', '<leader>tl', "<cmd>lua require('neotest').run.run_last()<cr>", { desc = 'Last' })
 
       vim.keymap.set('n', '<leader>tn', function()
