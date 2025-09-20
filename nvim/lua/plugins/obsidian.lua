@@ -21,23 +21,27 @@ return {
       -- Required.
       'nvim-lua/plenary.nvim',
     },
-    config = function ()
-      require("obsidian").setup({
-      ui = { enable = false },
-      workspaces = {
-        {
-          name = 'personal',
-          path = '~/Documents/notes',
+    config = function()
+      require('obsidian').setup {
+        ui = { enable = false },
+        workspaces = {
+          {
+            name = 'personal',
+            path = '~/Documents/notes',
+          },
+          {
+            name = 'zettelkasten',
+            path = '~/zettelkasten',
+          },
         },
-      },
-      picker = {
-        name = "snacks.pick"
-      },
-      completion = {
-        nvim_cmp = false,
-        blink = true,
+        picker = {
+          name = 'snacks.pick',
+        },
+        completion = {
+          nvim_cmp = false,
+          blink = true,
+        },
       }
-    })
-    end
+    end,
   },
 }
