@@ -9,6 +9,7 @@ return {
   {
     'saghen/blink.cmp',
     dependencies = {
+      -- 'mikavilpas/blink-ripgrep.nvim',
       { 'L3MON4D3/LuaSnip', version = 'v2.*' },
       { 'Kaiser-Yang/blink-cmp-dictionary', dependencies = { 'nvim-lua/plenary.nvim' } },
       { 'Kaiser-Yang/blink-cmp-avante' },
@@ -70,9 +71,7 @@ return {
             end,
           } },
         },
-        fuzzy = {
-          implementation = 'prefer_rust',
-        },
+        fuzzy = { implementation = 'prefer_rust_with_warning' },
         appearance = {
           use_nvim_cmp_as_default = true,
           nerd_font_variant = 'mono',
@@ -85,26 +84,21 @@ return {
         },
         snippets = { preset = 'luasnip' },
         sources = {
-          default = { 'lazydev', 'easy-dotnet', 'snippets', 'lsp', 'path', 'buffer' }, -- , 'avante_commands', 'avante_mentions', 'avante_files'
+          default = { 'snippets', 'lsp', 'easy-dotnet', 'path', 'buffer' }, -- , 'avante_commands', 'avante_mentions', 'avante_files'
           providers = {
-            ['easy-dotnet'] = {
-              name = 'easy-dotnet',
-              enabled = true,
-              module = 'easy-dotnet.completion.blink',
-              score_offset = 10000,
-              async = true,
-            },
-            lazydev = {
-              name = 'LazyDev',
-              module = 'lazydev.integrations.blink',
-              score_offset = 100,
-            },
             avante = {
               module = 'blink-cmp-avante',
               name = 'Avante',
               opts = {
                 -- options for blink-cmp-avante
               },
+            },
+            ['easy-dotnet'] = {
+              name = 'easy-dotnet',
+              enabled = true,
+              module = 'easy-dotnet.completion.blink',
+              score_offset = 10000,
+              async = true,
             },
           },
         },

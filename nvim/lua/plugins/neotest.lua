@@ -1,31 +1,27 @@
 return {
   {
-    'Issafalcon/neotest-dotnet',
-  },
-  { 'nvim-neotest/neotest-python' },
-  { 'nvim-neotest/neotest-plenary' },
-  {
     'nvim-neotest/neotest',
     dependencies = {
       'nvim-neotest/nvim-nio',
       'nvim-lua/plenary.nvim',
       'antoinemadec/FixCursorHold.nvim',
       'nvim-treesitter/nvim-treesitter',
+      {
+        lazy = false,
+        'nsidorenco/neotest-vstest',
+      },
+    },
+    requires = {
+      { 'nsidorenco/neotest-vstest' },
     },
     version = '*',
     event = 'VeryLazy',
     config = function()
       require('neotest').setup {
         adapters = {
-          require 'neotest-python' {
-            dap = { justMyCode = false },
-            adapter_name = 'netcoredbg',
-          },
-          require 'neotest-plenary',
-          require 'neotest-dotnet' {
-            discovery_root = 'solution', -- Default
-            dotnet_additional_args = {
-              '--verbosity detailed',
+          require 'neotest-vstest' {
+            dap_settings = {
+              type = 'netcoredbg',
             },
           },
         },

@@ -75,10 +75,16 @@ return {
         },
         exclude = excluded,
       }
+      -- Autocommands
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'MiniFilesActionRename',
+        callback = function(event)
+          Snacks.rename.on_rename_file(event.data.from, event.data.to)
+        end,
+      })
 
       -- Picker
-
-      --                                                                                                                                                                                                                reallyif
+      --
       vim.keymap.set('n', 'z=', function()
         local row, col = unpack(vim.api.nvim_win_get_cursor(0))
         Snacks.picker.spelling {

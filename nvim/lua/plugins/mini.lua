@@ -1,44 +1,25 @@
 return {
 
-  { 'echasnovski/mini.icons', version = false, config = true },
-  { 'echasnovski/mini.extra', version = false, config = true },
-  -- {
-  --   'echasnovski/mini.files',
-  --   version = false,
-  --   config = function()
-  --     require('mini.files').setup()
-  --     vim.keymap.set('n', '-', function()
-  --       MiniFiles.open(vim.api.nvim_buf_get_name(0))
-  --     end, { desc = 'Mini Files' })
-  --     require('mini.files').setup()
-  --     vim.keymap.set('n', '<leader>-', function()
-  --       MiniFiles.open()
-  --     end, { desc = 'Mini Files Root' })
-  --   end,
-  -- },
-  -- {
-  --   'echasnovski/mini.statusline',
-  --   version = '*',
-  --   config = true,
-  -- },
+  { 'nvim-mini/mini.icons', version = false, config = true },
+  { 'nvim-mini/mini.extra', version = false, config = true },
   {
-    'echasnovski/mini.ai',
+    'nvim-mini/mini.ai',
     event = 'VeryLazy',
     config = true,
   },
   {
-    'echasnovski/mini.bracketed',
+    'nvim-mini/mini.bracketed',
     version = '*',
     config = true,
   },
-  { 'echasnovski/mini.pairs', version = '*', config = true },
+  { 'nvim-mini/mini.pairs', version = '*', config = true },
   {
-    'echasnovski/mini.surround',
+    'nvim-mini/mini.surround',
     version = '*',
     config = true,
   },
   {
-    'echasnovski/mini.clue',
+    'nvim-mini/mini.clue',
     version = '*',
     config = function()
       local miniclue = require 'mini.clue'
