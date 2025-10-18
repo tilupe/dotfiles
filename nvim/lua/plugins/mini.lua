@@ -1,6 +1,13 @@
 return {
 
-  { 'nvim-mini/mini.icons', version = false, config = true },
+  {
+    'nvim-mini/mini.icons',
+    version = false,
+    config = function()
+      require('mini.icons').setup()
+      MiniIcons.mock_nvim_web_devicons()
+    end,
+  },
   { 'nvim-mini/mini.extra', version = false, config = true },
   {
     'nvim-mini/mini.ai',
@@ -73,6 +80,7 @@ return {
           { mode = 'n', keys = '<Leader>u', desc = '+Toggle' },
           { mode = 'n', keys = '<Leader>k', desc = '+Harpoon' },
           { mode = 'n', keys = '<Leader>d', desc = '+Debug' },
+          { mode = 'n', keys = '<Leader>n', desc = '+Notes' },
           miniclue.gen_clues.builtin_completion(),
           miniclue.gen_clues.g(),
           miniclue.gen_clues.marks(),

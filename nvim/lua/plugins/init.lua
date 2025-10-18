@@ -7,6 +7,27 @@ return {
   },
   { 'nvim-lua/plenary.nvim' },
   {
+    'ibhagwan/fzf-lua',
+    dependencies = { 'nvim-mini/mini.icons' },
+    opts = {
+      previewers = {
+        builtin = {
+          extensions = {
+            -- neovim terminal only supports `viu` block output
+            ['png'] = { 'viu', '-b' },
+            ['jpg'] = { 'ueberzug' },
+          },
+          -- fill the preview area with ueberzug's image scaler, set to:
+          --   false (no scaling), "crop", "distort", "fit_contain",
+          --   "contain", "forced_cover", "cover"
+          -- For more details see:
+          -- https://github.com/seebye/ueberzug
+          ueberzug_scaler = 'cover',
+        },
+      },
+    },
+  },
+  {
     'sindrets/diffview.nvim',
     config = function()
       require('diffview').setup {
@@ -141,6 +162,27 @@ return {
     keys = {},
   },
   {
+    'juacker/git-link.nvim',
+    keys = {
+      {
+        '<leader>gu',
+        function()
+          require('git-link.main').copy_line_url()
+        end,
+        desc = 'Copy code link to clipboard',
+        mode = { 'n', 'x' },
+      },
+      {
+        '<leader>go',
+        function()
+          require('git-link.main').open_line_url()
+        end,
+        desc = 'Open code link in browser',
+        mode = { 'n', 'x' },
+      },
+    },
+  },
+  {
     'mbbill/undotree',
     lazy = true,
     cmd = 'UndotreeToggle',
@@ -148,69 +190,6 @@ return {
       { '<leader>U', ':UndotreeToggle<cr>' },
     },
   }, -- see undo tree
-  {
-    'rose-pine/neovim',
-    name = 'rose-pine',
-  },
-  {
-    'folke/tokyonight.nvim',
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  },
-  {
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    priority = 1000,
-    config = function()
-      require('catppuccin').setup {
-        flavour = 'macchiato', -- latte, frappe, macchiato, mocha
-        background = { -- :h background
-          light = 'latte',
-          dark = 'macchiato',
-        },
-        transparent_background = true,
-        show_end_of_buffer = false, -- show the '~' characters after the end of buffers
-        term_colors = false,
-        dim_inactive = {
-          enabled = false,
-          shade = 'dark',
-          percentage = 0.15,
-        },
-        no_italic = false, -- Force no italic
-        no_bold = false, -- Force no bold
-        styles = {
-          comments = { 'italic' },
-          conditionals = { 'italic' },
-          loops = {},
-          functions = {},
-          keywords = {},
-          strings = {},
-          variables = {},
-          numbers = {},
-          booleans = {},
-          properties = {},
-          types = {},
-          operators = {},
-        },
-        color_overrides = {},
-        custom_highlights = {},
-        integrations = {
-          cmp = true,
-          gitsigns = true,
-          nvimtree = true,
-          telescope = true,
-          notify = false,
-          mini = false,
-          -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
-        },
-      }
-
-      -- setup must be called before loading
-      -- vim.cmd.colorscheme 'catppuccin'
-    end,
-  },
-  { 'rebelot/kanagawa.nvim', priority = 1000 },
   {
     'neanias/everforest-nvim',
     priority = 1000,
@@ -222,16 +201,16 @@ return {
         background = 'hard',
         ---How much of the background should be transparent. 2 will have more UI
         ---components be transparent (e.g. status line background)
-        transparent_background_level = 2,
+        transparent_background_level = 1,
         ---Whether italics should be used for keywords and more.
         italics = true,
         disable_italic_comments = false,
         ---By default, the colour of the sign column background is the same as the as normal text
         ---background, but you can use a grey background by setting this to `"grey"`.
-        sign_column_background = 'grey',
+        -- sign_column_background = 'grey',
         ---The contrast of line numbers, indent lines, etc. Options are `"high"` or
         ---`"low"` (default).
-        ui_contrast = 'high',
+        ui_contrast = 'low',
         ---Dim inactive windows. Only works in Neovim. Can look a bit weird with Telescope.
         ---
         ---When this option is used in conjunction with show_eob set to `false`, the
@@ -242,7 +221,7 @@ return {
         ---Some plugins support highlighting error/warning/info/hint texts, by
         ---default these texts are only underlined, but you can use this option to
         ---also highlight the background of them.
-        diagnostic_text_highlight = true,
+        diagnostic_text_highlight = false,
         ---Which colour the diagnostic text should be. Options are `"grey"` or `"coloured"` (default)
         diagnostic_virtual_text = 'coloured',
         ---Some plugins support highlighting error/warning/info/hint lines, but this
@@ -264,7 +243,7 @@ return {
         ---
         ---NB: This is only significant for dark backgrounds as the light palettes
         ---have the same colour for both values in the switch.
-        float_style = 'birght',
+        float_style = 'dim',
         ---Inlay hints are special markers that are displayed inline with the code to
         ---provide you with additional information. You can use this option to customize
         ---the background color of inlay hints.
@@ -281,17 +260,9 @@ return {
         -- ---@param palette Palette
         -- colours_override = function(palette) end,
       }
-      -- everforest.setup {
-      --
-      --   background = 'hard',
-      --   italics = true,
-      --   inlay_hints_background = 'dimmed',
-      --   disable_italic_comments = false,
-      --   diagnostic_line_highlight = true,
-      --   show_eob = false,
-      --   spell_foreground = true,
-      -- }
       everforest.load()
+
+      vim.cmd.colorscheme 'everforest'
     end,
   },
   { 'norcalli/nvim-colorizer.lua' },
@@ -416,7 +387,6 @@ return {
       require 'config.nvim-dap-ui'
     end,
   },
-  { 'nvim-tree/nvim-web-devicons', version = '*' },
   {
     'NeogitOrg/neogit',
     config = function()
@@ -436,41 +406,41 @@ return {
     end,
   },
 
-  -- {
-  --   'nicolasgb/jj.nvim',
-  --   config = function()
-  --     require('jj').setup {}
-  --     local cmd = require 'jj.cmd'
-  --     vim.keymap.set('n', '<leader>jd', cmd.describe, { desc = 'JJ describe' })
-  --     vim.keymap.set('n', '<leader>jl', cmd.log, { desc = 'JJ log' })
-  --     vim.keymap.set('n', '<leader>je', cmd.edit, { desc = 'JJ edit' })
-  --     vim.keymap.set('n', '<leader>jn', cmd.new, { desc = 'JJ new' })
-  --     vim.keymap.set('n', '<leader>js', cmd.status, { desc = 'JJ status' })
-  --     vim.keymap.set('n', '<leader>dj', cmd.diff, { desc = 'JJ diff' })
-  --     vim.keymap.set('n', '<leader>sj', cmd.squash, { desc = 'JJ squash' })
-  --
-  --     -- Pickers
-  --     vim.keymap.set('n', '<leader>jg', function()
-  --       require('jj.picker').status()
-  --     end, { desc = 'JJ Picker status' })
-  --     vim.keymap.set('n', '<leader>jh', function()
-  --       require('jj.picker').file_history()
-  --     end, { desc = 'JJ Picker file history' })
-  --
-  --     -- Some functions like `describe` or `log` can take parameters
-  --     vim.keymap.set('n', '<leader>ji', function()
-  --       cmd.log {
-  --         revisions = '@',
-  --       }
-  --     end, { desc = 'JJ log' })
-  --
-  --     -- This is an alias i use for moving bookmarks its so good
-  --     vim.keymap.set('n', '<leader>jt', function()
-  --       cmd.j 'tug'
-  --       cmd.log {}
-  --     end, { desc = 'JJ tug' })
-  --   end,
-  -- },
+  {
+    'nicolasgb/jj.nvim',
+    config = function()
+      require('jj').setup {}
+      local cmd = require 'jj.cmd'
+      vim.keymap.set('n', '<leader>jd', cmd.describe, { desc = 'JJ describe' })
+      vim.keymap.set('n', '<leader>jl', cmd.log, { desc = 'JJ log' })
+      vim.keymap.set('n', '<leader>je', cmd.edit, { desc = 'JJ edit' })
+      vim.keymap.set('n', '<leader>jn', cmd.new, { desc = 'JJ new' })
+      vim.keymap.set('n', '<leader>js', cmd.status, { desc = 'JJ status' })
+      vim.keymap.set('n', '<leader>dj', cmd.diff, { desc = 'JJ diff' })
+      vim.keymap.set('n', '<leader>sj', cmd.squash, { desc = 'JJ squash' })
+
+      -- Pickers
+      vim.keymap.set('n', '<leader>jg', function()
+        require('jj.picker').status()
+      end, { desc = 'JJ Picker status' })
+      vim.keymap.set('n', '<leader>jh', function()
+        require('jj.picker').file_history()
+      end, { desc = 'JJ Picker file history' })
+
+      -- Some functions like `describe` or `log` can take parameters
+      vim.keymap.set('n', '<leader>ji', function()
+        cmd.log {
+          revisions = '@',
+        }
+      end, { desc = 'JJ log' })
+
+      -- This is an alias i use for moving bookmarks its so good
+      vim.keymap.set('n', '<leader>jt', function()
+        cmd.j 'tug'
+        cmd.log {}
+      end, { desc = 'JJ tug' })
+    end,
+  },
   { 'Tastyep/structlog.nvim', version = '*' },
   {
     'nvim-mini/mini.files',
@@ -596,29 +566,41 @@ return {
     'letieu/wezterm-move.nvim',
     keys = { -- Lazy loading, don't need call setup() function
       {
-        '<C-h>',
+        '<M-h>',
         function()
           require('wezterm-move').move 'h'
         end,
       },
       {
-        '<C-j>',
+        '<M-j>',
         function()
           require('wezterm-move').move 'j'
         end,
       },
       {
-        '<C-k>',
+        '<M-k>',
         function()
           require('wezterm-move').move 'k'
         end,
       },
       {
-        '<C-l>',
+        '<M-l>',
         function()
           require('wezterm-move').move 'l'
         end,
       },
+    },
+  },
+  {
+    'HakonHarnes/img-clip.nvim',
+    event = 'VeryLazy',
+    opts = {
+      -- add options here
+      -- or leave it empty to use the default settings
+    },
+    keys = {
+      -- suggested keymap
+      { '<leader>p', '<cmd>PasteImage<cr>', desc = 'Paste image from system clipboard' },
     },
   },
 }

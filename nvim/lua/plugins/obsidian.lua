@@ -23,6 +23,10 @@ return {
     },
     config = function()
       require('obsidian').setup {
+        footer = {
+          enabled = false,
+        },
+        legacy_commands = false,
         ui = { enable = false },
         workspaces = {
           {

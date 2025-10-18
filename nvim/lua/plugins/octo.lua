@@ -3,7 +3,7 @@ return {
   dependencies  = {
     'nvim-lua/plenary.nvim',
     'folke/snacks.nvim',
-    'nvim-tree/nvim-web-devicons',
+    'nvim-mini/mini.icons',
   },
   config = function ()
     require"octo".setup(

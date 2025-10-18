@@ -3,6 +3,8 @@
 local M = {}
 
 -- Create a function to run shell commands and get output
+--- @param path string
+--- @return string
 local function get_command_output(cmd)
   local handle = io.popen(cmd)
   if not handle then
@@ -18,6 +20,9 @@ local function get_command_output(cmd)
 end
 
 -- Function to get absolute path
+--
+--- @param path string
+--- @return string
 local function get_absolute_path(path)
   local output = get_command_output('realpath "' .. path .. '"')
   return output

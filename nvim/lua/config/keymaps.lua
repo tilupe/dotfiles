@@ -28,8 +28,8 @@ vim.keymap.set('n', '<right>', ':vertical resize +2<cr>')
 vim.keymap.set('n', '<left>', ':vertical resize -2<cr>')
 
 vim.keymap.set('n', '<leader>qq', '<CMD>qa<CR>', { desc = 'Quit all' })
--- vim.keymap.set('n', '<leader>bd', '<CMD>bdelete<CR>', { desc = 'Buffer Delete' })
-vim.keymap.set('n', '<leader>bx', '<C-W>c', { desc = 'Buffer Close' })
+vim.keymap.set('n', '<leader>bx', '<C-W>c', { desc = 'Close' })
+vim.keymap.set('n', '<leader>br', '<CMD>e<CR>', { desc = 'Reload' })
 
 -- remove highlight
 vim.keymap.set('n', '<Esc>', vim.cmd.nohlsearch)
@@ -41,9 +41,6 @@ vim.keymap.set('n', '<leader>co', vim.cmd.copen, { desc = 'Quickfix open' })
 
 -- Tabs
 vim.keymap.set('n', '<leader><tab>d', '<CMD>tabclose<CR>', { desc = 'Close' })
-
-vim.keymap.set('n', '<F5>', '<CMD>e<CR>', { desc = 'Reload file' })
-vim.keymap.set('n', '<F10>', "<CMD>let $VIM_DIR=expand('%:p:h')<CR><cmd>terminal<CR>cd $VIM_DIR<cr>", { desc = 'Current DIR Terminal' })
 
 -- inlay hints
 vim.keymap.set('n', '<leader>li', function()
@@ -59,3 +56,13 @@ vim.keymap.set('n', '<leader>cj', '<CMD>lua vim.diagnostic.goto_next()<CR>', { d
 vim.keymap.set('n', '[d', '<CMD>lua vim.diagnostic.goto_next()<CR>', { desc = 'Next Diagnostic' })
 vim.keymap.set('n', '<leader>ck', '<CMD>lua vim.diagnostic.goto_prev()<CR>', { desc = 'Previous Diagnostic' })
 vim.keymap.set('n', ']d', '<CMD>lua vim.diagnostic.goto_prev()<CR>', { desc = 'Previous Diagnostic' })
+
+-- Customs
+-- Notes
+vim.keymap.set('n', '<leader>nt', function()
+  require('custom.notes.todos').AddTodo()
+end, { desc = 'Todo (Add)' })
+
+vim.keymap.set('n', '<leader>nn', function()
+  require('custom.notes').new_note()
+end, { desc = 'New' })

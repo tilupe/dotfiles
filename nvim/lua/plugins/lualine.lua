@@ -2,8 +2,8 @@ return {
   {
     'nvim-lualine/lualine.nvim',
     dependencies = {
-      'nvim-tree/nvim-web-devicons',
-      'GustavEikaas/easy-dotnet.nvim',
+      'nvim-mini/mini.icons',
+      -- 'GustavEikaas/easy-dotnet.nvim',
       {
         'letieu/harpoon-lualine',
         dependencies = {
@@ -15,7 +15,6 @@ return {
       },
     },
     config = function()
-      local job_indicator = { require('easy-dotnet.ui-modules.jobs').lualine }
       require('lualine').setup {
         options = {
           icons_enabled = true,
@@ -50,7 +49,7 @@ return {
           },
         },
         sections = {
-          lualine_a = { 'mode', job_indicator },
+          lualine_a = { 'mode' },
           lualine_b = { 'branch', 'diff', 'diagnostics' },
           lualine_c = {
             {
