@@ -1,5 +1,14 @@
 return {
   {
+    'yousefhadder/markdown-plus.nvim',
+    ft = 'markdown',
+    config = function()
+      require('markdown-plus').setup {
+        -- Your custom configuration here
+      }
+    end,
+  },
+  {
     'MeanderingProgrammer/render-markdown.nvim',
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },
     config = function()
