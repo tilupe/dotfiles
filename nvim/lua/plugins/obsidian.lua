@@ -18,43 +18,62 @@ return {
       }
 
       vim.treesitter.language.register('markdown', 'vimwiki')
-      vim.treesitter.language.register('markdown', 'octo')
+      -- vim.treesitter.language.register('markdown', 'octo')
     end,
   },
   {
-    'obsidian-nvim/obsidian.nvim',
-    version = '*', -- recommended, use latest release instead of latest commit
-    lazy = true,
-    ft = 'markdown',
-    dependencies = {
-      -- Required.
-      'nvim-lua/plenary.nvim',
-    },
+    'zk-org/zk-nvim',
     config = function()
-      require('obsidian').setup {
-        footer = {
-          enabled = false,
-        },
-        legacy_commands = false,
-        ui = { enable = false },
-        workspaces = {
-          {
-            name = 'personal',
-            path = '~/Documents/notes',
+      require('zk').setup {
+        picker = 'snacks_picker',
+        lsp = {
+          -- `config` is passed to `vim.lsp.start(config)`
+          config = {
+            name = 'zk',
+            cmd = { 'zk', 'lsp' },
+            filetypes = { 'markdown' },
           },
-          {
-            name = 'zettelkasten',
-            path = '~/zettelkasten',
+          auto_attach = {
+            enabled = true,
           },
-        },
-        picker = {
-          name = 'snacks.pick',
-        },
-        completion = {
-          nvim_cmp = false,
-          blink = true,
         },
       }
     end,
   },
+  -- {
+  --   'obsidian-nvim/obsidian.nvim',
+  --   version = '*', -- recommended, use latest release instead of latest commit
+  --   lazy = true,
+  --   ft = 'markdown',
+  --   dependencies = {
+  --     -- Required.
+  --     'nvim-lua/plenary.nvim',
+  --   },
+  --   config = function()
+  --     require('obsidian').setup {
+  --       footer = {
+  --         enabled = false,
+  --       },
+  --       legacy_commands = false,
+  --       ui = { enable = false },
+  --       workspaces = {
+  --         {
+  --           name = 'personal',
+  --           path = '~/Documents/notes',
+  --         },
+  --         {
+  --           name = 'zettelkasten',
+  --           path = '~/zettelkasten',
+  --         },
+  --       },
+  --       picker = {
+  --         name = 'snacks.pick',
+  --       },
+  --       completion = {
+  --         nvim_cmp = false,
+  --         blink = true,
+  --       },
+  --     }
+  --   end,
+  -- },
 }

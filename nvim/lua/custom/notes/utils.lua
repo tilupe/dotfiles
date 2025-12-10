@@ -9,7 +9,7 @@ local M = {}
 ---@field sec string Second (00-59)
 ---@field as_datetime function(self:DateObject):string Returns formatted date-time string (YYYY-MM-DD HH:MM:SS)
 ---@field as_id function(self:DateObject):string Returns condensed date-time identifier (YYYYMMDDHHMMSS)
----@field as_title function(self:DateObject):string Returns formatted date-time for title (YYYY-MM-DD_HH)
+---@field as_title function(self:DateObject):string Returns formatted date-time for title (YYYY-MM-DD)
 ---@field as_file_name function(self:DateObject):string Returns formatted date-time for file names (YYYY_MM_DD_HH_MM_SS)
 ---@return DateObject date object with formatted time methods
 
@@ -36,7 +36,7 @@ function M.get_date_object()
 
   -- Method to format as title
   function date:as_title()
-    return self.year .. '-' .. self.month .. '-' .. self.day .. '_' .. self.hour
+    return self.year .. '-' .. self.month .. '-' .. self.day
   end
 
   function date:as_file_name()

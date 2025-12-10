@@ -45,21 +45,31 @@ function M.select_template(options, callback)
 end
 
 function M.new_note()
-    M.select_template(templ.templates, function(template)
-      if template then
-        print('Selected template: ' .. template.name)
-        -- Continue with template processing
-        M.create_note(template)
-      else
-        print 'No template selected'
-      end
-    end)
+  M.select_template(templ.templates, function(template)
+    if template then
+      print('Selected template: ' .. template.name)
+      -- Continue with template processing
+      M.create_note(template)
+    else
+      print 'No template selected'
+    end
+  end)
 end
 
 ---@param template NoteTemplate The note template to process
 function M.create_note(template)
   -- Apply the template
   local template_value = templ.map_template(template)
+
+  -- check if file already exists and open it
+  local f = io.open(template_value.note_path)
+  if f then
+    f:close()
+    vim.notify 'opening existing file..'
+    vim.cmd('edit ' .. vim.fn.fnameescape(template_value.note_path))
+    return false
+  end
+
   local content = templ.apply_template(template_value)
   if not content then
     print 'Failed to process template'

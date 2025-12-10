@@ -11,12 +11,12 @@ return {
     dependencies = {
       -- 'mikavilpas/blink-ripgrep.nvim',
       { 'L3MON4D3/LuaSnip', version = 'v2.*' },
-      { 'Kaiser-Yang/blink-cmp-dictionary', dependencies = { 'nvim-lua/plenary.nvim' } },
-      { 'Kaiser-Yang/blink-cmp-avante' },
+      -- { 'Kaiser-Yang/blink-cmp-dictionary', dependencies = { 'nvim-lua/plenary.nvim' } },
+      -- { 'Kaiser-Yang/blink-cmp-avante' },
       { 'folke/lazydev.nvim', opts = {} },
-      {
-        'fang2hou/blink-copilot',
-      },
+      -- {
+      --   'fang2hou/blink-copilot',
+      -- },
     },
     version = '1.*',
     build = 'nix run .#build-plugin',
@@ -72,7 +72,7 @@ return {
             end,
           } },
         },
-        fuzzy = { implementation = 'prefer_rust_with_warning' },
+        -- fuzzy = { implementation = 'prefer_rust_with_warning' },
         appearance = {
           use_nvim_cmp_as_default = true,
           nerd_font_variant = 'mono',
@@ -86,6 +86,10 @@ return {
         snippets = { preset = 'luasnip' },
         sources = {
           default = { 'snippets', 'lazydev', 'lsp',  'path', 'buffer' }, -- , 'avante_commands', 'avante_mentions', 'avante_files' 'easy-dotnet'
+          per_filetype = {
+            gitcommit = { 'git' },
+            markdown = { 'snippets', 'lsp', 'path', 'buffer' },
+          },
           providers = {
             lazydev = {
               name = 'LazyDev',

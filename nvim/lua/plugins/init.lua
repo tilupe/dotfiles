@@ -198,7 +198,7 @@ return {
       require('everforest').setup {
         ---Controls the "hardness" of the background. Options are "soft", "medium" or "hard".
         ---Default is "medium".
-        background = 'hard',
+        background = 'medium',
         ---How much of the background should be transparent. 2 will have more UI
         ---components be transparent (e.g. status line background)
         transparent_background_level = 1,
@@ -320,7 +320,7 @@ return {
     config = function()
       require('conform').setup {
         formatters = {
-          csharpier = { command = 'dotnet', args = { 'csharpier', 'format', '--write-stdout' } },
+          -- csharpier = { command = 'dotnet', args = { 'csharpier', 'format', '--write-stdout' } },
         },
         formatters_by_ft = {
           lua = { 'stylua' },
@@ -406,41 +406,6 @@ return {
     end,
   },
 
-  {
-    'nicolasgb/jj.nvim',
-    config = function()
-      require('jj').setup {}
-      local cmd = require 'jj.cmd'
-      vim.keymap.set('n', '<leader>jd', cmd.describe, { desc = 'JJ describe' })
-      vim.keymap.set('n', '<leader>jl', cmd.log, { desc = 'JJ log' })
-      vim.keymap.set('n', '<leader>je', cmd.edit, { desc = 'JJ edit' })
-      vim.keymap.set('n', '<leader>jn', cmd.new, { desc = 'JJ new' })
-      vim.keymap.set('n', '<leader>js', cmd.status, { desc = 'JJ status' })
-      vim.keymap.set('n', '<leader>dj', cmd.diff, { desc = 'JJ diff' })
-      vim.keymap.set('n', '<leader>sj', cmd.squash, { desc = 'JJ squash' })
-
-      -- Pickers
-      vim.keymap.set('n', '<leader>jg', function()
-        require('jj.picker').status()
-      end, { desc = 'JJ Picker status' })
-      vim.keymap.set('n', '<leader>jh', function()
-        require('jj.picker').file_history()
-      end, { desc = 'JJ Picker file history' })
-
-      -- Some functions like `describe` or `log` can take parameters
-      vim.keymap.set('n', '<leader>ji', function()
-        cmd.log {
-          revisions = '@',
-        }
-      end, { desc = 'JJ log' })
-
-      -- This is an alias i use for moving bookmarks its so good
-      vim.keymap.set('n', '<leader>jt', function()
-        cmd.j 'tug'
-        cmd.log {}
-      end, { desc = 'JJ tug' })
-    end,
-  },
   { 'Tastyep/structlog.nvim', version = '*' },
   {
     'nvim-mini/mini.files',
@@ -602,5 +567,25 @@ return {
       -- suggested keymap
       { '<leader>p', '<cmd>PasteImage<cr>', desc = 'Paste image from system clipboard' },
     },
+  },
+  {
+    'mistweaverco/kulala.nvim',
+    keys = {
+      { '<leader>Rs', desc = 'Send request' },
+      { '<leader>Ra', desc = 'Send all requests' },
+      { '<leader>Rb', desc = 'Open scratchpad' },
+    },
+    ft = { 'http', 'rest' },
+    opts = {
+      global_keymaps = false,
+      global_keymaps_prefix = '<leader>R',
+      kulala_keymaps_prefix = '',
+    },
+  },
+  {
+    'A7Lavinraj/fyler.nvim',
+    dependencies = { 'nvim-mini/mini.icons' },
+    branch = 'stable', -- Use stable branch for production
+    opts = {},
   },
 }

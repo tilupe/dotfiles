@@ -1,126 +1,28 @@
--- Autocommands
--- vim.api.nvim_create_autocmd({ 'InsertLeave' }, {
---   pattern = '*',
---   callback = function()
---     local clients = vim.lsp.get_clients { name = 'roslyn' }
---     if not clients or #clients == 0 then
---       return
---     end
---
---     local client = assert(vim.lsp.get_client_by_id(ctx.client_id))
---     local buffers = vim.lsp.get_buffers_by_client_id(ctx.client_id)
---     for _, buf in ipairs(buffers) do
---       local params = { textDocument = vim.lsp.util.make_text_document_params(buf) }
---       client:request('textDocument/diagnostic', params, nil, buf)
---     end
---   end,
--- })
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    local bufnr = args.buf
+local exe = 'Microsoft.CodeAnalysis.LanguageServer'
 
-    if client and (client.name == 'roslyn' or client.name == 'roslyn_ls') then
-      vim.api.nvim_create_autocmd('InsertCharPre', {
-        desc = "Roslyn: Trigger an auto insert on '/'.",
-        buffer = bufnr,
-        callback = function()
-          local char = vim.v.char
-
-          if char ~= '/' then
-            return
-          end
-
-          local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-          row, col = row - 1, col + 1
-          local uri = vim.uri_from_bufnr(bufnr)
-
-          local params = {
-            _vs_textDocument = { uri = uri },
-            _vs_position = { line = row, character = col },
-            _vs_ch = char,
-            _vs_options = {
-              tabSize = vim.bo[bufnr].tabstop,
-              insertSpaces = vim.bo[bufnr].expandtab,
-            },
-          }
-
-          -- NOTE: We should send textDocument/_vs_onAutoInsert request only after
-          -- buffer has changed.
-          vim.defer_fn(function()
-            client:request(
-              ---@diagnostic disable-next-line: param-type-mismatch
-              'textDocument/_vs_onAutoInsert',
-              params,
-              function(err, result, _)
-                if err or not result then
-                  return
-                end
-
-                vim.snippet.expand(result._vs_textEdit.newText)
-              end,
-              bufnr
-            )
-          end, 1)
-        end,
-      })
-    end
-  end,
-})
-
-vim.api.nvim_create_user_command('CSFixUsings', function()
-  local bufnr = vim.api.nvim_get_current_buf()
-
-  local clients = vim.lsp.get_clients { name = 'roslyn' }
-  if not clients or vim.tbl_isempty(clients) then
-    vim.notify("Couldn't find client", vim.log.levels.ERROR, { title = 'Roslyn' })
-    return
-  end
-
-  local client = clients[1]
-  local action = {
-    kind = 'quickfix',
-    data = {
-      CustomTags = { 'RemoveUnnecessaryImports' },
-      TextDocument = { uri = vim.uri_from_bufnr(bufnr) },
-      CodeActionPath = { 'Remove unnecessary usings' },
-      Range = {
-        ['start'] = { line = 0, character = 0 },
-        ['end'] = { line = 0, character = 0 },
-      },
-      UniqueIdentifier = 'Remove unnecessary usings',
-    },
-  }
-
-  client:request('codeAction/resolve', action, function(err, resolved_action)
-    if err then
-      vim.notify('Fix using directives failed', vim.log.levels.ERROR, { title = 'Roslyn' })
-      return
-    end
-    vim.lsp.util.apply_workspace_edit(resolved_action.edit, client.offset_encoding)
-  end)
-end, { desc = 'Remove unnecessary using directives' })
-
---
---
--- Roslyn and Razor LanguageServer
-local rzls_lib_path = vim.fn.resolve(vim.fs.joinpath(vim.fn.resolve(vim.fn.fnamemodify(vim.fn.exepath 'rzls', ':h')), '..', 'lib', 'rzls'))
-local design_time_target_path = vim.fs.joinpath(rzls_lib_path, 'Targets', 'Microsoft.NET.Sdk.Razor.DesignTime.targets')
-local razor_compiler_path = vim.fs.joinpath(rzls_lib_path, 'Microsoft.CodeAnalysis.Razor.Compiler.dll')
 local cmd = {
-  'Microsoft.CodeAnalysis.LanguageServer',
+  exe,
+  '--logLevel=Information',
+  '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.log.get_filename()),
   '--stdio',
-  '--logLevel=Debug',
-  '--extensionLogDirectory=' .. vim.fs.dirname(vim.lsp.get_log_path()),
-  '--razorSourceGenerator=' .. razor_compiler_path,
-  '--razorDesignTimePath=' .. design_time_target_path,
 }
+
+local function find_razor_extension_path()
+  return '/nix/store/9ic0hpanp80scgznjc0xrqxibfan8g1b-vscode-extension-ms-dotnettools-csharp-2.93.22/share/vscode/extensions/ms-dotnettools.csharp/.razorExtension/'
+end
+
+local razor_extension_path = find_razor_extension_path()
+if razor_extension_path ~= nil then
+  cmd = vim.list_extend(cmd, {
+    '--razorSourceGenerator=' .. vim.fs.joinpath(razor_extension_path, 'Microsoft.CodeAnalysis.Razor.Compiler.dll'),
+    '--razorDesignTimePath=' .. vim.fs.joinpath(razor_extension_path, 'Targets', 'Microsoft.NET.Sdk.Razor.DesignTime.targets'),
+    '--extension',
+    vim.fs.joinpath(razor_extension_path, 'Microsoft.VisualStudioCode.RazorExtension.dll'),
+  })
+end
 
 return {
   cmd = cmd,
-  config = {
-    handlers = require 'rzls.roslyn_handlers',
-  },
   filetypes = {
     'cs',
     'razor',
@@ -152,7 +54,6 @@ return {
     ['csharp|completion'] = {
       dotnet_show_name_completion_suggestions = true,
       dotnet_show_completion_items_from_unimported_namespaces = true,
-      dotnet_provide_regex_completions = true,
     },
     ['csharp|code_lens'] = {
       dotnet_enable_references_code_lens = true,

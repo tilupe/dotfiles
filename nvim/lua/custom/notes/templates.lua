@@ -94,6 +94,31 @@ M.templates = {
       return '/home/tilupe/zettelkasten/fleeting/' .. date:as_title() .. '_' .. title:gsub('%s', '_') .. '.md'
     end,
   },
+  daily = {
+    name = 'Daily Note',
+    id = function(date)
+      return date:as_id()
+    end,
+    title = function(date)
+      return date:as_title()
+    end,
+    tags = function()
+      return {
+        'notiz',
+        'daily',
+      }
+    end,
+    file = function()
+      local file = vim.fn.stdpath 'config' .. '/lua/custom/notes/template_files/daily_note.md'
+      if not vim.fn.filereadable(file) then
+        error('Template file does not exist: ' .. file)
+      end
+      return file
+    end,
+    note_path = function(title, date)
+      return '/home/tilupe/zettelkasten/daily/' .. date:as_title() .. '.md'
+    end,
+  },
   story = {
     name = 'Story Jira',
     id = function(date)

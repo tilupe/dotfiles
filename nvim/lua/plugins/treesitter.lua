@@ -1,12 +1,16 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    build = function()
-      require('nvim-treesitter.install').update { with_sync = true }()
-    end,
+    lazy = false,
+    build = 
+      ':TSUpdate',
+    -- function()
+    -- require('nvim-treesitter.install').update { with_sync = true }()
+    -- end,
     config = function()
-      local configs = require 'nvim-treesitter.configs'
-      configs.setup {
+      require('nvim-treesitter').setup {
+        -- Directory to install parsers and queries to (prepended to `runtimepath` to have priority)
+        install_dir = vim.fn.stdpath 'data' .. '/site',
         sync_install = false,
         highlight = { enable = true },
         indent = { enable = true },
@@ -28,6 +32,7 @@ return {
           'python',
           'rust',
           'toml',
+          'templ',
           'hyprlang',
           'vimdoc',
           'razor',
