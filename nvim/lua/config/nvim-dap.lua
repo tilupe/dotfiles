@@ -209,14 +209,34 @@ function M.select_launch_profile()
 
   menu:mount()
 end
-vim.keymap.set('n', '<leader>dc', "<Cmd>lua require'dap'.continue()<CR>", { desc = 'Continue' })
-vim.keymap.set('n', '<leader>dt', "<Cmd>lua require('neotest').run.run({strategy = 'dap'})<CR>", { desc = 'Run Test (DAP)' })
-vim.keymap.set('n', '<leader>db', "<Cmd>lua require'dap'.toggle_breakpoint()<CR>", { desc = 'Toggle Breakpoint' })
-vim.keymap.set('n', '<leader>dn', "<Cmd>lua require'dap'.step_over()<CR>", { desc = 'Step Over' })
-vim.keymap.set('n', '<leader>di', "<Cmd>lua require'dap'.step_into()<CR>", { desc = 'Step In' })
-vim.keymap.set('n', '<leader>do', "<Cmd>lua require'dap'.step_out()<CR>", { desc = 'Step Out' })
-vim.keymap.set('n', '<leader>dr', "<Cmd>lua require'dap'.repl.open()<CR>", { desc = 'REPL' })
-vim.keymap.set('n', '<leader>dl', "<Cmd>lua require'dap'.run_last()<CR>", { desc = 'Run Last' })
-vim.api.nvim_set_keymap("n", "<F5>", "<cmd>lua require('config.nvim-dap').select_launch_profile()<CR>", { noremap = true, silent = true })
+require("dapui").setup()
 
+-- Auto-open/close DAP UI
+local dap, dapui = require("dap"), require("dapui")
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dapui.close()
+end
+
+-- Recommended keymaps for debugging
+vim.keymap.set('n', '<F5>', function() require('dap').continue() end, { desc = 'Debug: Continue' })
+vim.keymap.set('n', '<F10>', function() require('dap').step_over() end, { desc = 'Debug: Step Over' })
+vim.keymap.set('n', '<F11>', function() require('dap').step_into() end, { desc = 'Debug: Step Into' })
+vim.keymap.set('n', '<F12>', function() require('dap').step_out() end, { desc = 'Debug: Step Out' })
+vim.keymap.set('n', '<leader>b', function() require('dap').toggle_breakpoint() end, { desc = 'Debug: Toggle Breakpoint' })
+-- vim.keymap.set('n', '<leader>dc', "<Cmd>lua require'dap'.continue()<CR>", { desc = 'Continue' })
+-- vim.keymap.set('n', '<leader>dt', "<Cmd>lua require('neotest').run.run({strategy = 'dap'})<CR>", { desc = 'Run Test (DAP)' })
+-- vim.keymap.set('n', '<leader>db', "<Cmd>lua require'dap'.toggle_breakpoint()<CR>", { desc = 'Toggle Breakpoint' })
+-- vim.keymap.set('n', '<leader>dn', "<Cmd>lua require'dap'.step_over()<CR>", { desc = 'Step Over' })
+-- vim.keymap.set('n', '<leader>di', "<Cmd>lua require'dap'.step_into()<CR>", { desc = 'Step In' })
+-- vim.keymap.set('n', '<leader>do', "<Cmd>lua require'dap'.step_out()<CR>", { desc = 'Step Out' })
+-- vim.keymap.set('n', '<leader>dr', "<Cmd>lua require'dap'.repl.open()<CR>", { desc = 'REPL' })
+-- vim.keymap.set('n', '<leader>dl', "<Cmd>lua require'dap'.run_last()<CR>", { desc = 'Run Last' })
+-- vim.api.nvim_set_keymap("n", "<F5>", "<cmd>lua require('config.nvim-dap').select_launch_profile()<CR>", { noremap = true, silent = true })
+--
 return M

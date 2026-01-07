@@ -1,10 +1,4 @@
 return {
-  {
-    'nvim-telescope/telescope.nvim',
-    tag = '0.1.8',
-    -- or                              , branch = '0.1.x',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-  },
   { 'nvim-lua/plenary.nvim' },
   {
     'ibhagwan/fzf-lua',
@@ -26,6 +20,11 @@ return {
         },
       },
     },
+  },
+  {
+    'esmuellert/codediff.nvim',
+    dependencies = { 'MunifTanjim/nui.nvim' },
+    cmd = 'CodeDiff',
   },
   {
     'sindrets/diffview.nvim',
@@ -74,6 +73,12 @@ return {
       vim.keymap.set('n', '<leader>gh', '<CMD>DiffviewFileHistory %<CR>', { desc = 'history' })
       vim.keymap.set('n', '<leader>gH', '<CMD>DiffviewFileHistory<CR>', { desc = 'All File [H]istory' })
       vim.keymap.set('n', '<leader>gR', '<CMD>DiffviewRefresh<CR>', { desc = 'All File [H]istory' })
+    end,
+  },
+  {
+    'lucasadelino/jjtrack',
+    config = function()
+      require('jjtrack').setup()
     end,
   },
   {
@@ -201,7 +206,7 @@ return {
         background = 'medium',
         ---How much of the background should be transparent. 2 will have more UI
         ---components be transparent (e.g. status line background)
-        transparent_background_level = 1,
+        transparent_background_level = 0,
         ---Whether italics should be used for keywords and more.
         italics = true,
         disable_italic_comments = false,
@@ -365,28 +370,28 @@ return {
     version = '*',
     config = true,
   },
-  {
-    -- Debug Framework
-    'mfussenegger/nvim-dap',
-    dependencies = {
-      'rcarriga/nvim-dap-ui',
-    },
-    config = function()
-      require 'config.nvim-dap'
-    end,
-    event = 'VeryLazy',
-  },
-  {
-    -- UI for debugging
-    'rcarriga/nvim-dap-ui',
-    dependencies = {
-      'mfussenegger/nvim-dap',
-      'nvim-neotest/nvim-nio',
-    },
-    config = function()
-      require 'config.nvim-dap-ui'
-    end,
-  },
+  -- {
+  --   -- Debug Framework
+  --   'mfussenegger/nvim-dap',
+  --   dependencies = {
+  --     'rcarriga/nvim-dap-ui',
+  --   },
+  --   config = function()
+  --     require 'config.nvim-dap'
+  --   end,
+  --   event = 'VeryLazy',
+  -- },
+  -- {
+  --   -- UI for debugging
+  --   'rcarriga/nvim-dap-ui',
+  --   dependencies = {
+  --     'mfussenegger/nvim-dap',
+  --     'nvim-neotest/nvim-nio',
+  --   },
+  --   config = function()
+  --     require 'config.nvim-dap-ui'
+  --   end,
+  -- },
   {
     'NeogitOrg/neogit',
     config = function()
@@ -571,12 +576,13 @@ return {
   {
     'mistweaverco/kulala.nvim',
     keys = {
-      { '<leader>Rs', desc = 'Send request' },
-      { '<leader>Ra', desc = 'Send all requests' },
-      { '<leader>Rb', desc = 'Open scratchpad' },
+      { '<leader>ss', desc = 'Send request' },
+      { '<leader>sa', desc = 'Send all requests' },
+      { '<leader>sb', desc = 'Open scratchpad' },
     },
     ft = { 'http', 'rest' },
     opts = {
+      -- your configuration comes here
       global_keymaps = false,
       global_keymaps_prefix = '<leader>R',
       kulala_keymaps_prefix = '',
@@ -588,4 +594,5 @@ return {
     branch = 'stable', -- Use stable branch for production
     opts = {},
   },
+  { 'obsidian-nvim/calendar.nvim' },
 }

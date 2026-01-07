@@ -41,5 +41,6 @@ fi
 project_file=$(basename "$project_file")
 
 # Run the project
+echo "Executing command:  dotnet run --project '${project_path}/${project_file}' --launch-profile '$profile'"
 dotnet run --project "${project_path}/${project_file}" --launch-profile "$profile"
  

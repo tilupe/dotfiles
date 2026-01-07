@@ -97,20 +97,6 @@ return {
               -- make lazydev completions top priority (see `:h blink.cmp`)
               score_offset = 100,
             },
-            avante = {
-              module = 'blink-cmp-avante',
-              name = 'Avante',
-              opts = {
-                -- options for blink-cmp-avante
-              },
-            },
-            -- ['easy-dotnet'] = {
-            --   name = 'easy-dotnet',
-            --   enabled = true,
-            --   module = 'easy-dotnet.completion.blink',
-            --   score_offset = 10000,
-            --   async = true,
-            -- },
           },
         },
       }

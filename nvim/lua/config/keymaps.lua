@@ -41,6 +41,7 @@ vim.keymap.set('n', '<leader>co', vim.cmd.copen, { desc = 'Quickfix open' })
 
 -- Tabs
 vim.keymap.set('n', '<leader><tab>d', '<CMD>tabclose<CR>', { desc = 'Close' })
+vim.keymap.set('n', '<leader><tab>n', '<CMD>tabNext<CR>', { desc = 'Next' })
 
 -- inlay hints
 vim.keymap.set('n', '<leader>li', function()
@@ -62,7 +63,3 @@ vim.keymap.set('n', ']d', '<CMD>lua vim.diagnostic.goto_prev()<CR>', { desc = 'P
 vim.keymap.set('n', '<leader>nt', function()
   require('custom.notes.todos').AddTodo()
 end, { desc = 'Todo (Add)' })
-
-vim.keymap.set('n', '<leader>nn', function()
-  require('custom.notes').new_note()
-end, { desc = 'New' })

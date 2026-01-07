@@ -126,9 +126,9 @@ return {
       vim.keymap.set('n', 'gr', function()
         Snacks.picker.lsp_references { layout = { preset = 'ivy', layout = { position = 'bottom' } } }
       end, { desc = 'references' })
-      vim.keymap.set('n', 'gd', function()
-        Snacks.picker.lsp_definitions { layout = { preset = 'ivy', layout = { position = 'bottom' } } }
-      end, { desc = 'definitions' })
+      -- vim.keymap.set('n', 'gd', function()
+      --   Snacks.picker.lsp_definitions { layout = { preset = 'ivy', layout = { position = 'bottom' } } }
+      -- end, { desc = 'definitions' })
       vim.keymap.set('n', '<leader>fz', function()
         Snacks.picker.zoxide { layout = { preset = 'ivy', layout = { position = 'bottom' } } }
       end, { desc = 'zoxide' })
@@ -158,9 +158,6 @@ return {
       vim.keymap.set('n', '<leader>cR', function()
         Snacks.rename.rename_file()
       end, { desc = 'Rename File' })
-      vim.keymap.set({ 'n', 'v' }, '<leader>gB', function()
-        Snacks.gitbrowse()
-      end, { desc = 'Git Browse' })
       vim.keymap.set('n', '<leader>gi', function()
         Snacks.git.blame_line()
       end, { desc = 'Git Blame Line' })

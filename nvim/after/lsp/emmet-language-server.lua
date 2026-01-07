@@ -4,6 +4,7 @@ return {
     'css',
     'eruby',
     'html',
+    'templ',
     'htmldjango',
     'javascriptreact',
     'less',

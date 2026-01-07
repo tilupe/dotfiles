@@ -9,11 +9,11 @@ return {
     end,
   },
   { 'nvim-mini/mini.extra', version = false, config = true },
-  {
-    'nvim-mini/mini.ai',
-    event = 'VeryLazy',
-    config = true,
-  },
+  -- {
+  --   'nvim-mini/mini.ai',
+  --   event = 'VeryLazy',
+  --   config = true,
+  -- },
   {
     'nvim-mini/mini.bracketed',
     version = '*',
@@ -78,7 +78,7 @@ return {
           { mode = 'n', keys = '<Leader>c', desc = '+Code' },
           { mode = 'n', keys = '<Leader>b', desc = '+Buffer' },
           { mode = 'n', keys = '<Leader>u', desc = '+Toggle' },
-          { mode = 'n', keys = '<Leader>k', desc = '+Harpoon' },
+          { mode = 'n', keys = '<Leader>k', desc = 'Kubectl' },
           { mode = 'n', keys = '<Leader>d', desc = '+Debug' },
           { mode = 'n', keys = '<Leader>n', desc = '+Notes' },
           miniclue.gen_clues.builtin_completion(),

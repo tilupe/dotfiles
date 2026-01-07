@@ -4,6 +4,7 @@ vim.lsp.enable {
   'zk',
   'gopls',
   'lua_ls',
+  'docker',
   'nixd',
   'yaml-language-server',
   'pyright',

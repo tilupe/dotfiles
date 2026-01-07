@@ -1,7 +1,7 @@
-local blink = require('blink.cmp')
+local blink = require 'blink.cmp'
 return {
   cmd = { 'gopls' },
-  filetypes = { 'go', 'gomod', 'gowork', 'gotmpl', 'gosum' },
+  filetypes = { 'go', 'gomod', 'gowork', 'gotmpl', 'gosum', 'templ' },
   root_markers = {
     'go.mod',
     'go.work',

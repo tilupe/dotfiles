@@ -1,6 +1,6 @@
 local M = {}
 
-M.default_todo_file = vim.fn.expand '~' .. '/zettelkasten/todo.md'
+M.default_todo_file = vim.fn.expand '~' .. '/notes/todo.md'
 
 -- Function to quickly add a todo item to a todo.md file
 function M.AddTodo()

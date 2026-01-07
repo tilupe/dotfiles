@@ -17,7 +17,7 @@ vim.opt.mouse = 'a'
 vim.opt.pumblend = 10
 vim.opt.pumheight = 10
 vim.opt.scrollback = 100000
-vim.opt.scrolloff = 20
+vim.opt.scrolloff = 5
 vim.opt.sessionoptions = { 'buffers', 'curdir', 'tabpages', 'winsize' }
 vim.opt.shiftround = true
 vim.opt.shiftwidth = 2
@@ -107,5 +107,8 @@ vim.g.have_nerd_font = true
 vim.opt.list = true
 vim.opt.listchars = { tab = '│ ' }
 
-
-
+vim.filetype.add {
+  extension = {
+    ['http'] = 'http',
+  },
+}
