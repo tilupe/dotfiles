@@ -1,6 +1,7 @@
 -- ~/.config/nvim/lua/dotnet_runner.lua
 
 local M = {}
+local dap = require('dap')
 
 -- Create a function to run shell commands and get output
 --- @param path string
@@ -176,13 +177,8 @@ function M.debug_project(project_path, project_file, profile)
     end
   end
 
-  -- Start debugging
+  -- Start debugging (dap-view auto_toggle will open the view)
   dap.run(config)
-
-  -- Open DAP UI if available
-  pcall(function()
-    require('dapui').open()
-  end)
 end
 
 -- Main function to orchestrate the dotnet run workflow

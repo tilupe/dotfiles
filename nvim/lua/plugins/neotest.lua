@@ -11,9 +11,6 @@ return {
         'nsidorenco/neotest-vstest',
       },
     },
-    requires = {
-      { 'nsidorenco/neotest-vstest' },
-    },
     version = '*',
     event = 'VeryLazy',
     config = function()
@@ -21,17 +18,17 @@ return {
         adapters = {
           require 'neotest-vstest' {
             dap_settings = {
-              type = 'netcoredbg',
+              type = 'coreclr',
             },
           },
         },
       }
-      vim.keymap.set('n', '<Leader>tn', function()
-        require('neotest').run.run()
-      end, { desc = 'Nearest' })
-
-      vim.keymap.set('n', '<leader>tF', "<cmd>lua require('plugins.dap.functions').run(vim.fn.expand('%'))<cr>", { desc = 'File Debug' })
-      vim.keymap.set('n', '<leader>tL', "<cmd>lua require('plugins.dap.functions').run_last()<cr>", { desc = 'Last Debug' })
+      vim.keymap.set('n', '<leader>tF', function()
+        require('neotest').run.run { vim.fn.expand('%'), strategy = 'dap' }
+      end, { desc = 'File Debug' })
+      vim.keymap.set('n', '<leader>tL', function()
+        require('neotest').run.run_last { strategy = 'dap' }
+      end, { desc = 'Last Debug' })
       vim.keymap.set('n', '<leader>ta', "<cmd>lua require('neotest').run.attach()<cr>", { desc = 'Attach' })
       vim.keymap.set('n', '<leader>tf', "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", { desc = 'File' })
       vim.keymap.set('n', '<leader>tl', "<cmd>lua require('neotest').run.run_last()<cr>", { desc = 'Last' })
@@ -42,25 +39,10 @@ return {
 
       vim.keymap.set('n', '<leader>tN', function()
         local path = vim.fn.expand '%'
-        if path then
-          if vim.bo.filetype == 'cs' then
-            require('neotest').run.run {
-              path,
-              strategy = require 'neotest-dotnet.strategies.netcoredbg',
-              is_custom_dotnet_debug = true,
-            }
-          else
-            require('neotest').run.run { path, strategy = 'dap' }
-          end
+        if path and path ~= '' then
+          require('neotest').run.run { path, strategy = 'dap' }
         else
-          if vim.bo.filetype == 'cs' then
-            require('neotest').run.run {
-              strategy = require 'neotest-dotnet.strategies.netcoredbg',
-              is_custom_dotnet_debug = true,
-            }
-          else
-            require('neotest').run.run { strategy = 'dap' }
-          end
+          require('neotest').run.run { strategy = 'dap' }
         end
       end, { desc = 'Debug Nearest' })
       vim.keymap.set('n', '<leader>to', "<cmd>lua require('neotest').output.open({ enter = true })<cr>", { desc = 'Output' })

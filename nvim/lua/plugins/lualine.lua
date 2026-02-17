@@ -15,12 +15,13 @@ return {
       },
     },
     config = function()
+      local jj = require 'config.jj'
       require('lualine').setup {
         options = {
           icons_enabled = true,
           theme = 'auto',
-          component_separators = { left = '', right = '' },
-          section_separators = { left = '', right = '' },
+          component_separators = { left = '', right = '' },
+          section_separators = { left = '', right = '' },
           disabled_filetypes = {
             statusline = {},
             winbar = {},
@@ -50,7 +51,12 @@ return {
         },
         sections = {
           lualine_a = { 'mode' },
-          lualine_b = { 'branch', 'diff', 'diagnostics' },
+          lualine_b = {
+            { jj.bookmark, cond = jj.is_jj_repo, icon = '' },
+            { 'branch', cond = jj.is_not_jj_repo },
+            'diff',
+            'diagnostics',
+          },
           lualine_c = {
             {
               'macro',
@@ -73,7 +79,6 @@ return {
               _separator = ' ',
               no_harpoon = 'Harpoon not loaded',
             },
-
             'filename',
           },
           lualine_x = {
@@ -81,9 +86,9 @@ return {
             {
               'fileformat',
               symbols = {
-                unix = '',
-                dos = '',
-                mac = '',
+                unix = '',
+                dos = '',
+                mac = '',
               },
             },
             'filetype',
@@ -109,13 +114,12 @@ return {
               file_status = true,
               newfile_status = false,
               path = 3,
-
-              shorting_target = 40, -- Shortens path to leave 40 spaces in the window
+              shorting_target = 40,
               symbols = {
-                modified = '[+]', -- Text to show when the file is modified.
-                readonly = '[-]', -- Text to show when the file is non-modifiable or readonly.
-                unnamed = '[No Name]', -- Text to show for unnamed buffers.
-                newfile = '[New]', -- Text to show for newly created file before first write
+                modified = '[+]',
+                readonly = '[-]',
+                unnamed = '[No Name]',
+                newfile = '[New]',
               },
             },
           },
@@ -132,13 +136,12 @@ return {
               file_status = true,
               newfile_status = false,
               path = 3,
-
-              shorting_target = 40, -- Shortens path to leave 40 spaces in the window
+              shorting_target = 40,
               symbols = {
-                modified = '[+]', -- Text to show when the file is modified.
-                readonly = '[-]', -- Text to show when the file is non-modifiable or readonly.
-                unnamed = '[No Name]', -- Text to show for unnamed buffers.
-                newfile = '[New]', -- Text to show for newly created file before first write
+                modified = '[+]',
+                readonly = '[-]',
+                unnamed = '[No Name]',
+                newfile = '[New]',
               },
             },
           },

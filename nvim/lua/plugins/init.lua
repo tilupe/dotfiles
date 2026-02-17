@@ -76,12 +76,6 @@ return {
     end,
   },
   {
-    'lucasadelino/jjtrack',
-    config = function()
-      require('jjtrack').setup()
-    end,
-  },
-  {
     'lewis6991/gitsigns.nvim',
     event = 'BufRead',
     config = function()
@@ -370,28 +364,6 @@ return {
     version = '*',
     config = true,
   },
-  -- {
-  --   -- Debug Framework
-  --   'mfussenegger/nvim-dap',
-  --   dependencies = {
-  --     'rcarriga/nvim-dap-ui',
-  --   },
-  --   config = function()
-  --     require 'config.nvim-dap'
-  --   end,
-  --   event = 'VeryLazy',
-  -- },
-  -- {
-  --   -- UI for debugging
-  --   'rcarriga/nvim-dap-ui',
-  --   dependencies = {
-  --     'mfussenegger/nvim-dap',
-  --     'nvim-neotest/nvim-nio',
-  --   },
-  --   config = function()
-  --     require 'config.nvim-dap-ui'
-  --   end,
-  -- },
   {
     'NeogitOrg/neogit',
     config = function()
