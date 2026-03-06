@@ -146,8 +146,6 @@ return {
             return '<Ignore>'
           end, { expr = true, desc = 'Prev Hunk' })
 
-          vim.keymap.set('n', '<leader>gj', '<CMD>Gitsigns next_hunk<CR>', { desc = 'Next Hunk' })
-          vim.keymap.set('n', '<leader>gk', '<CMD>Gitsigns prev_hunk<CR>', { desc = 'Prev Hunk' })
           vim.keymap.set('n', '<leader>gs', '<CMD>Gitsigns stage_hunk<CR>', { desc = 'Stage Hunk' })
           vim.keymap.set('n', '<leader>gS', '<CMD>Gitsigns undo_stage_hunk<CR>', { desc = 'Undo Stage Hunk' })
           vim.keymap.set('n', '<leader>gr', '<CMD>Gitsigns reset_hunk<CR>', { desc = 'Reset Hunk' })
@@ -269,7 +267,6 @@ return {
     'zbirenbaum/copilot.lua', -- Copilot but lua
     cmd = 'Copilot',
     event = 'InsertEnter',
-    config = true,
     opts = {
       panel = {
         enabled = false,
@@ -328,6 +325,7 @@ return {
           rust = { 'rustfmt', lsp_format = 'fallback' },
           javascript = { 'prettierd', 'prettier', stop_after_first = true },
           cs = { 'csharpier' },
+          razor = { 'prettierd' },
           nix = { 'nixfmt' },
           json = { 'jq' },
           sql = { 'sql_formatter', lsp_format = 'never' },
@@ -381,6 +379,24 @@ return {
         return neogit.open { kind = 'replace' }
       end, { desc = 'Neogit' })
     end,
+  },
+  {
+    'NicholasZolton/neojj',
+    lazy = true,
+    dependencies = {
+      'nvim-lua/plenary.nvim', -- required
+
+      -- Only one of these is needed.
+      'sindrets/diffview.nvim', -- optional
+      'esmuellert/codediff.nvim', -- optional
+
+      -- Only one of these is needed.
+      'folke/snacks.nvim', -- optional
+    },
+    cmd = 'Neojj',
+    keys = {
+      { '<leader>jj', '<cmd>Neojj<cr>', desc = 'Show Neojj UI' },
+    },
   },
 
   { 'Tastyep/structlog.nvim', version = '*' },
@@ -445,37 +461,40 @@ return {
     lazy = false,
     ---@module "quicker"
     ---@type quicker.SetupOptions
-    opts = {},
-    config = function()
-      vim.keymap.set('n', '<leader>qf', function()
-        require('quicker').toggle()
-      end, {
-        desc = 'Toggle quickfix',
-      })
-      vim.keymap.set('n', '<leader>ql', function()
-        require('quicker').toggle { loclist = true }
-      end, {
-        desc = 'Toggle loclist',
-      })
-      require('quicker').setup {
-        keys = {
-          {
-            '>',
-            function()
-              require('quicker').expand { before = 2, after = 2, add_to_existing = true }
-            end,
-            desc = 'Expand quickfix context',
-          },
-          {
-            '<',
-            function()
-              require('quicker').collapse()
-            end,
-            desc = 'Collapse quickfix context',
-          },
+    opts = {
+      keys = {
+        {
+          '>',
+          function()
+            require('quicker').expand { before = 2, after = 2, add_to_existing = true }
+          end,
+          desc = 'Expand quickfix context',
         },
-      }
-    end,
+        {
+          '<',
+          function()
+            require('quicker').collapse()
+          end,
+          desc = 'Collapse quickfix context',
+        },
+      },
+    },
+    keys = {
+      {
+        '<leader>uf',
+        function()
+          require('quicker').toggle()
+        end,
+        desc = 'Toggle quickfix',
+      },
+      {
+        '<leader>qF',
+        function()
+          require('quicker').toggle { loclist = true }
+        end,
+        desc = 'Toggle loclist',
+      },
+    },
   },
   {
     'OXY2DEV/helpview.nvim',

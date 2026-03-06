@@ -12,10 +12,11 @@ return {
         },
         windows = {
           size = 0.25,
-          position = 'right',
+          position = 'below',
           terminal = {
-            size = 0.3,
-            position = 'below',
+            size = 0.5,
+            position = 'left',
+            hide = {},
           },
         },
         auto_toggle = true,
@@ -25,20 +26,86 @@ return {
     'theHamsta/nvim-dap-virtual-text',
   },
   keys = {
-    { '<F5>', function() require('dap').continue() end, desc = 'Debug: Continue' },
-    { '<F10>', function() require('dap').step_over() end, desc = 'Debug: Step Over' },
-    { '<F11>', function() require('dap').step_into() end, desc = 'Debug: Step Into' },
-    { '<F12>', function() require('dap').step_out() end, desc = 'Debug: Step Out' },
-    { '<leader>b', function() require('dap').toggle_breakpoint() end, desc = 'Debug: Toggle Breakpoint' },
-    { '<leader>B', function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = 'Debug: Conditional Breakpoint' },
-    { '<leader>dr', function() require('dap').repl.open() end, desc = 'Debug: Open REPL' },
-    { '<leader>dl', function() require('dap').run_last() end, desc = 'Debug: Run Last' },
-    { '<leader>dt', function() require('dap').terminate() end, desc = 'Debug: Terminate' },
-    { '<leader>du', function() require('dap-view').toggle() end, desc = 'Debug: Toggle View' },
-    { '<leader>dw', function() require('dap-view').add_expr() end, desc = 'Debug: Add Watch Expression' },
+    {
+      '<F5>',
+      function()
+        require('dap').continue()
+      end,
+      desc = 'Debug: Continue',
+    },
+    {
+      '<F10>',
+      function()
+        require('dap').step_over()
+      end,
+      desc = 'Debug: Step Over',
+    },
+    {
+      '<F11>',
+      function()
+        require('dap').step_into()
+      end,
+      desc = 'Debug: Step Into',
+    },
+    {
+      '<F12>',
+      function()
+        require('dap').step_out()
+      end,
+      desc = 'Debug: Step Out',
+    },
+    {
+      '<leader>b',
+      function()
+        require('dap').toggle_breakpoint()
+      end,
+      desc = 'Debug: Toggle Breakpoint',
+    },
+    {
+      '<leader>B',
+      function()
+        require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+      end,
+      desc = 'Debug: Conditional Breakpoint',
+    },
+    {
+      '<leader>dr',
+      function()
+        require('dap').repl.open()
+      end,
+      desc = 'Debug: Open REPL',
+    },
+    {
+      '<leader>dl',
+      function()
+        require('dap').run_last()
+      end,
+      desc = 'Debug: Run Last',
+    },
+    {
+      '<leader>dt',
+      function()
+        require('dap').terminate()
+      end,
+      desc = 'Debug: Terminate',
+    },
+    {
+      '<leader>du',
+      function()
+        require('dap-view').toggle()
+      end,
+      desc = 'Debug: Toggle View',
+    },
+    {
+      '<leader>dw',
+      function()
+        require('dap-view').add_expr()
+      end,
+      desc = 'Debug: Add Watch Expression',
+    },
   },
   config = function()
-    local dap = require('dap')
+    local dap = require 'dap'
 
     -- Adapter configuration
     dap.adapters.coreclr = {
@@ -60,12 +127,12 @@ return {
     }
 
     -- Virtual text setup
-    require('nvim-dap-virtual-text').setup({
+    require('nvim-dap-virtual-text').setup {
       enabled = true,
       highlight_changed_variables = true,
       show_stop_reason = true,
       virt_text_pos = 'eol',
-    })
+    }
 
     -- Sign definitions
     vim.fn.sign_define('DapBreakpoint', { text = '●', texthl = 'DapBreakpoint', linehl = '', numhl = '' })
