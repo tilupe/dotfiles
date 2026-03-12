@@ -8,15 +8,14 @@ return {
           show = true,
           default_section = 'scopes',
           show_keymap_hints = true,
-          sections = { 'scopes', 'watches', 'breakpoints', 'threads', 'repl' },
+          sections = { 'scopes', 'watches', 'breakpoints', 'threads', 'repl', 'console' },
         },
         windows = {
-          size = 0.25,
+          size = 0.35,
           position = 'below',
           terminal = {
             size = 0.5,
-            position = 'left',
-            hide = {},
+            position = 'right',
           },
         },
         auto_toggle = true,
@@ -27,28 +26,28 @@ return {
   },
   keys = {
     {
-      '<F5>',
+      '<leader>dc',
       function()
         require('dap').continue()
       end,
       desc = 'Debug: Continue',
     },
     {
-      '<F10>',
+      '<leader>ds',
       function()
         require('dap').step_over()
       end,
       desc = 'Debug: Step Over',
     },
     {
-      '<F11>',
+      '<leader>di',
       function()
         require('dap').step_into()
       end,
       desc = 'Debug: Step Into',
     },
     {
-      '<F12>',
+      '<leader>do',
       function()
         require('dap').step_out()
       end,
@@ -101,7 +100,7 @@ return {
       function()
         require('dap-view').add_expr()
       end,
-      desc = 'Debug: Add Watch Expression',
+      desc = 'Debug: Add Watch',
     },
   },
   config = function()

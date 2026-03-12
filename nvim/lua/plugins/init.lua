@@ -363,24 +363,6 @@ return {
     config = true,
   },
   {
-    'NeogitOrg/neogit',
-    config = function()
-      require('neogit').setup {
-        kind = 'auto',
-        graph_style = 'unicode',
-        disable_commit_confirmation = false,
-        integrations = {
-          diffview = true,
-        },
-      }
-
-      vim.keymap.set('n', '<leader>gg', function()
-        local neogit = require 'neogit'
-        return neogit.open { kind = 'replace' }
-      end, { desc = 'Neogit' })
-    end,
-  },
-  {
     'NicholasZolton/neojj',
     lazy = true,
     dependencies = {
@@ -395,7 +377,7 @@ return {
     },
     cmd = 'Neojj',
     keys = {
-      { '<leader>jj', '<cmd>Neojj<cr>', desc = 'Show Neojj UI' },
+      { '<leader>gg', '<cmd>Neojj<cr>', desc = 'Show Neojj UI' },
     },
   },
 
