@@ -138,10 +138,10 @@ return {
       end, { desc = 'Select outer class' })
 
       local swap = require 'nvim-treesitter-textobjects.swap'
-      vim.keymap.set('n', '<leader>as', function()
+      vim.keymap.set('n', '<leader>ps', function()
         swap.swap_next '@parameter.inner'
       end)
-      vim.keymap.set('n', '<leader>aS', function()
+      vim.keymap.set('n', '<leader>pS', function()
         swap.swap_previous '@parameter.outer'
       end)
 

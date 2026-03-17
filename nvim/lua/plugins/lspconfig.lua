@@ -10,8 +10,10 @@ return {
       -- - "off": Hack to turn off all filewatching. (Can be used if you notice performance issues)
       filewatching = 'roslyn',
       lock_target = true,
+      -- Customize broad_search for better project file detection
+      broad_search = true,
     },
-    conig = true,
+    config = true,
     init = function()
       -- We add the Razor file types before the plugin loads.
       vim.filetype.add {

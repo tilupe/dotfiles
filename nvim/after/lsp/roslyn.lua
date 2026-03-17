@@ -28,11 +28,17 @@ return {
     'razor',
     'cshtml',
   },
-  on_attach = function() end,
+  on_attach = function(client, bufnr)
+    -- Enable inlay hints if available
+    if client.server_capabilities.inlayHintProvider then
+      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+    end
+  end,
   settings = {
     ['csharp|background_analysis'] = {
-      -- dotnet_analyzer_diagnostics_scope = 'fullSolution',
-      -- dotnet_compiler_diagnostics_scope = 'fullSolution',
+      -- Enable full solution analysis for better diagnostics
+      dotnet_analyzer_diagnostics_scope = 'fullSolution',
+      dotnet_compiler_diagnostics_scope = 'fullSolution',
     },
     ['csharp|inlay_hints'] = {
       csharp_enable_inlay_hints_for_implicit_object_creation = true,
@@ -57,6 +63,30 @@ return {
     },
     ['csharp|code_lens'] = {
       dotnet_enable_references_code_lens = true,
+      dotnet_enable_tests_code_lens = true,
     },
+    ['csharp|implementing_type'] = {
+      dotnet_show_implementing_type_for_interface_members = true,
+    },
+    ['csharp|quick_info'] = {
+      dotnet_show_remarks_in_quick_info = true,
+    },
+    ['csharp|navigation'] = {
+      dotnet_navigate_to_decompiled_sources = true,
+    },
+    -- Performance optimizations
+    ['dotnet'] = {
+      projects = {
+        enableAutomaticRestore = true,
+      },
+    },
+  },
+  -- Increase default capabilities for better performance
+  init_options = {
+    AutomaticWorkspaceInit = true,
+  },
+  handlers = {
+    -- Reduce log spam for progress notifications
+    ['$/progress'] = function() end,
   },
 }

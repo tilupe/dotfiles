@@ -543,7 +543,7 @@ return {
     },
     keys = {
       -- suggested keymap
-      { '<leader>p', '<cmd>PasteImage<cr>', desc = 'Paste image from system clipboard' },
+      { '<leader>np', '<cmd>PasteImage<cr>', desc = 'Paste image from system clipboard' },
     },
   },
   {
