@@ -139,4 +139,4 @@ function _G.start_build(solution_file)
 end
 
 vim.api.nvim_create_user_command('DotnetBuild', build_dotnet_project, {})
-vim.keymap.set('n', '<leader>db', build_dotnet_project, { desc = 'Build dotnet project' })
+vim.keymap.set('n', '<leader>xb', build_dotnet_project, { desc = 'Build dotnet project' })

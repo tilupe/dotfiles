@@ -35,8 +35,6 @@ return {
         triggers = {
           { mode = 'n', keys = '<Leader>' },
           { mode = 'x', keys = '<Leader>' },
-          { mode = 'n', keys = '<space>' },
-          { mode = 'x', keys = '<space>' },
 
           -- Built-in completion
           { mode = 'i', keys = '<C-x>' },

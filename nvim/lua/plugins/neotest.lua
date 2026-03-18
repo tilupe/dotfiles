@@ -49,7 +49,5 @@ return {
       vim.keymap.set('n', '<leader>tS', "<cmd>lua require('neotest').run.stop()<cr>", { desc = 'Stop' })
       vim.keymap.set('n', '<leader>ts', "<cmd>lua require('neotest').summary.toggle()<cr>", { desc = 'Summary' })
     end,
-
-    keys = {},
   },
 }

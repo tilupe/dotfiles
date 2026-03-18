@@ -47,15 +47,6 @@ return {
         filter = vim.log.levels.INFO,
         history_size = 128,
         override_vim_notify = false,
-        configs = { default = vim.tbl_extend('force', {}, {}) },
-        redirect = function(msg, level, opts)
-          if opts and opts.on_open then
-            local ok, integration = pcall(require, 'fidget.integration.nvim-notify')
-            if ok then
-              return integration.delegate(msg, level, opts)
-            end
-          end
-        end,
         view = {
           stack_upwards = true,
           icon_separator = ' ',

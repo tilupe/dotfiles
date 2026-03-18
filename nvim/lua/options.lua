@@ -100,8 +100,6 @@ vim.opt.spelloptions = 'camel'
 vim.opt.fillchars = 'diff:╱'
 vim.opt.diffopt = 'filler,internal,closeoff,algorithm:histogram,context:5,linematch:60,indent-heuristic' --'
 
-vim.g.mapleader = ' '
-vim.g.maplocalleader = '§'
 vim.g.have_nerd_font = true
 
 vim.opt.list = true

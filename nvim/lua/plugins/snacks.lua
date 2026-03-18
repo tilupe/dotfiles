@@ -67,7 +67,7 @@ return {
           exclude = { "**/.git", "**/.jj"},
           sources = {
             files = { ignored = true, hidden = true },
-            explorery = { ignored = true, hidden = true },
+            explorer = { ignored = true, hidden = true },
             grep = { ignored = true, hidden = true },
             grep_word = { ignored = true, hidden = true },
             grep_buffer = { ignored = true, hidden = true },
@@ -128,9 +128,6 @@ return {
       vim.keymap.set('n', '<leader>fi', function()
         Snacks.picker.lsp_implementations()
       end, { desc = 'implementations' })
-      vim.keymap.set('n', '<leader>ca', function()
-        vim.lsp.buf.code_action()
-      end, { desc = 'actions' })
       vim.keymap.set('n', 'gr', function()
         Snacks.picker.lsp_references { layout = { preset = 'ivy', layout = { position = 'bottom' } } }
       end, { desc = 'references' })

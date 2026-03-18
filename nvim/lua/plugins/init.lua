@@ -72,7 +72,7 @@ return {
       vim.keymap.set('n', '<leader>gq', '<CMD>DiffviewClose<CR>', { desc = 'Quit [D]' })
       vim.keymap.set('n', '<leader>gh', '<CMD>DiffviewFileHistory %<CR>', { desc = 'history' })
       vim.keymap.set('n', '<leader>gH', '<CMD>DiffviewFileHistory<CR>', { desc = 'All File [H]istory' })
-      vim.keymap.set('n', '<leader>gR', '<CMD>DiffviewRefresh<CR>', { desc = 'All File [H]istory' })
+      vim.keymap.set('n', '<leader>gR', '<CMD>DiffviewRefresh<CR>', { desc = 'Refresh' })
     end,
   },
   {
@@ -124,7 +124,7 @@ return {
           row = 0,
           col = 1,
         },
-        on_attach = function(bufnr)
+        on_attach = function(_bufnr)
           local gs = package.loaded.gitsigns
           vim.keymap.set('n', '<leader>gj', function()
             if vim.wo.diff then

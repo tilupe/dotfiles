@@ -3,17 +3,7 @@ return {
     'yousefhadder/markdown-plus.nvim',
     ft = 'markdown',
     config = function()
-      require('markdown-plus').setup {
-        -- Your custom configuration here
-      }
-      vim.api.nvim_create_autocmd('FileType', {
-        pattern = 'markdown',
-        callback = function(args)
-          -- Schedule this to run after all other FileType autocmds
-          vim.schedule(function()
-          end)
-        end,
-      })
+      require('markdown-plus').setup {}
     end,
   },
   {

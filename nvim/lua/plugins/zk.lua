@@ -28,8 +28,6 @@ function Insert_markdown_link()
 end
 
 -- Function for Visual mode - uses selection as link text, prompts for URL
--- Function for Visual mode - uses selection as link text, prompts for URL
--- Function for Visual mode
 function Insert_markdown_link_visual()
   -- Store the selection before doing anything
   local start_pos = vim.fn.getpos "'<"
@@ -80,7 +78,6 @@ local function create_note_with_dir()
     local dirs = {}
     for dir in dirs_output:gmatch '[^\r\n]+' do
       local rel_dir = vim.fn.substitute(dir, vim.fn.escape(notebook_root .. '/', '/'), '', '')
-      local ret_dir = vim.fn.substitute(dir, vim.fn.escape(notebook_root .. '/', '/'), '', '')
 
       if rel_dir ~= notebook_root then
         table.insert(dirs, rel_dir)
@@ -110,6 +107,7 @@ local function create_note_with_dir()
   end)
 end
 
+-- TODO: this function is incomplete/broken
 local function create_daily_note()
   -- Get title
 
@@ -141,7 +139,6 @@ local function create_daily_note()
     local dirs = {}
     for dir in dirs_output:gmatch '[^\r\n]+' do
       local rel_dir = vim.fn.substitute(dir, vim.fn.escape(notebook_root .. '/', '/'), '', '')
-      local ret_dir = vim.fn.substitute(dir, vim.fn.escape(notebook_root .. '/', '/'), '', '')
 
       if rel_dir ~= notebook_root then
         table.insert(dirs, rel_dir)

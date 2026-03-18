@@ -51,26 +51,31 @@ return {
 
       vim.api.nvim_create_autocmd('FileType', {
         pattern = {
-          'norg',
-          'neorg',
-          'lua',
-          'python',
-          'rust',
-          'typescript',
-          'javascript',
+          'bash',
           'c',
           'cpp',
-          'java',
+          'cs',
+          'css',
           'go',
           'html',
-          'css',
-          'markdown',
-          'yaml',
+          'http',
+          'java',
+          'javascript',
           'json',
-          'toml',
-          'bash',
-          'zsh',
+          'lua',
+          'markdown',
+          'neorg',
+          'nix',
+          'norg',
+          'python',
+          'razor',
+          'rust',
           'sh',
+          'templ',
+          'toml',
+          'typescript',
+          'yaml',
+          'zsh',
         },
         callback = function()
           if pcall(vim.treesitter.start) then
@@ -135,14 +140,14 @@ return {
       end, { desc = 'Select inner class' })
       vim.keymap.set({ 'o', 'x' }, 'as', function()
         select('@local.scope', 'locals')
-      end, { desc = 'Select outer class' })
+      end, { desc = 'Select scope' })
 
       local swap = require 'nvim-treesitter-textobjects.swap'
       vim.keymap.set('n', '<leader>ps', function()
         swap.swap_next '@parameter.inner'
       end)
       vim.keymap.set('n', '<leader>pS', function()
-        swap.swap_previous '@parameter.outer'
+        swap.swap_previous '@parameter.inner'
       end)
 
       local move = require 'nvim-treesitter-textobjects.move'

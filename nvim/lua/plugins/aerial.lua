@@ -7,8 +7,6 @@ return {
   },
   keys = {
     { '<leader>a', '<cmd>AerialToggle!<CR>', desc = 'Aerial (Symbols)' },
-    { '{', '<cmd>AerialPrev<CR>', desc = 'Previous Symbol' },
-    { '}', '<cmd>AerialNext<CR>', desc = 'Next Symbol' },
   },
   opts = {
     backends = { 'lsp', 'treesitter', 'markdown', 'asciidoc', 'man' },
@@ -94,11 +92,9 @@ return {
     link_tree_to_folds = true,
     nerd_font = 'auto',
     on_attach = function(bufnr)
-      -- Set keymaps specific to aerial
-      vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
-      vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
+      vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr, desc = 'Previous Symbol' })
+      vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr, desc = 'Next Symbol' })
     end,
-    on_first_symbols = function(bufnr) end,
     open_automatic = false,
     post_jump_cmd = 'normal! zz',
     close_on_select = false,
@@ -116,7 +112,7 @@ return {
       max_height = 0.9,
       height = nil,
       min_height = { 8, 0.1 },
-      override = function(conf, source_winid)
+      override = function(conf, _source_winid)
         return conf
       end,
     },

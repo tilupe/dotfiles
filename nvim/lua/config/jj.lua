@@ -100,7 +100,6 @@ end
 
 -- Condition function to check if we're in a jj repo
 function M.is_jj_repo()
-  local is_jj = is_jj_repo()
   return is_jj_repo()
 end
 
