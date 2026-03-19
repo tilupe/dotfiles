@@ -24,7 +24,7 @@ return {
           section_separators = { left = '', right = '' },
           disabled_filetypes = {
             statusline = {},
-            winbar = { 'dap-view', 'dap-repl' },
+            winbar = { 'dap-view', 'dap-repl', 'k8s_*' },
           },
           ignore_focus = {},
           always_divide_middle = true,

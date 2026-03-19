@@ -4,6 +4,7 @@ require 'config.keymaps'
 require 'autocommands'
 require 'core.lsp'
 require('debug-runner').setup()
+require('custom.notes').setup()
 
 local function build_dotnet_project()
   local function find_solution_files()

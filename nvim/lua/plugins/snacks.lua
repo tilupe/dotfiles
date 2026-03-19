@@ -65,13 +65,6 @@ return {
           enabled = true,
           ui_select = true,
           exclude = { "**/.git", "**/.jj"},
-          sources = {
-            files = { ignored = true, hidden = true },
-            explorer = { ignored = true, hidden = true },
-            grep = { ignored = true, hidden = true },
-            grep_word = { ignored = true, hidden = true },
-            grep_buffer = { ignored = true, hidden = true },
-          }
         },
         quickfile = { enabled = true },
         statuscolumn = { enabled = true },
